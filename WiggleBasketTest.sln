@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiggleBasketTest", "WiggleBasketTest\WiggleBasketTest.csproj", "{AA7478BC-8C88-4DD8-BEF6-19CEE3CF3E04}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiggleClasses", "WiggleClasses\WiggleClasses.csproj", "{A09CFF52-3F55-4C50-BD6F-4495ACB771CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiggleUnitTests", "WiggleUnitTests\WiggleUnitTests.csproj", "{FCDB3D25-6A5B-4E95-80AF-98A3717232DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiggleWeb", "WiggleWeb\WiggleWeb.csproj", "{8F3D830F-CA42-46E7-89EB-310699AF0471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationVariables", "ApplicationVariables\ApplicationVariables.csproj", "{B01E7164-236F-4E38-8C90-B9D3E20A9975}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiggleBusinessLogic", "WiggleBusinessLogic\WiggleBusinessLogic.csproj", "{59387B92-F63A-4ED3-9982-0F1140B142AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AA7478BC-8C88-4DD8-BEF6-19CEE3CF3E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA7478BC-8C88-4DD8-BEF6-19CEE3CF3E04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA7478BC-8C88-4DD8-BEF6-19CEE3CF3E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA7478BC-8C88-4DD8-BEF6-19CEE3CF3E04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A09CFF52-3F55-4C50-BD6F-4495ACB771CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A09CFF52-3F55-4C50-BD6F-4495ACB771CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A09CFF52-3F55-4C50-BD6F-4495ACB771CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +27,18 @@ Global
 		{FCDB3D25-6A5B-4E95-80AF-98A3717232DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCDB3D25-6A5B-4E95-80AF-98A3717232DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCDB3D25-6A5B-4E95-80AF-98A3717232DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F3D830F-CA42-46E7-89EB-310699AF0471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F3D830F-CA42-46E7-89EB-310699AF0471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F3D830F-CA42-46E7-89EB-310699AF0471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F3D830F-CA42-46E7-89EB-310699AF0471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01E7164-236F-4E38-8C90-B9D3E20A9975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01E7164-236F-4E38-8C90-B9D3E20A9975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01E7164-236F-4E38-8C90-B9D3E20A9975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01E7164-236F-4E38-8C90-B9D3E20A9975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59387B92-F63A-4ED3-9982-0F1140B142AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59387B92-F63A-4ED3-9982-0F1140B142AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59387B92-F63A-4ED3-9982-0F1140B142AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59387B92-F63A-4ED3-9982-0F1140B142AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
