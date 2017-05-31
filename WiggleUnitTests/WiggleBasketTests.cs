@@ -7,22 +7,11 @@ namespace WiggleTests
     [TestClass]
     public class UnitTest1
     {
-        //new cl.Voucher(5.00m, "XXX-XXX", String.Empty, 0.00m, false),
-        //        new cl.Voucher(5.00m, "YYY-YYY", "Head Gear", 50.00m, true),
-        //        new cl.Voucher(5.00m, "YYY-YYY", String.Empty, 50.00m, true),
-        //        new cl.Voucher(30.00m, "XXX-XXX", String.Empty, 0.00m, false)
-
-        //    new cl.Item(1,"Jumper", String.Empty, 54.65m),
-        //        new cl.Item(1, "Hat", String.Empty, 25.00m),
-        //        new cl.Item(1, "Jumper", String.Empty, 26.00m),
-        //        new cl.Item(1, "Head Light", "Head Gear", 3.50m)
-        //        new cl.Item(1, "Hat", String.Empty, 10.50m)
-
         [TestMethod]
         public void Basket1()
         {
             //Arrange
-            cl.Item item1 = new cl.Item(1, "Hat", String.Empty, 25.00m);
+            cl.Item item1 = new cl.Item(1, "Hat", String.Empty, 10.50m);
             cl.Item item2 = new cl.Item(1, "Jumper", String.Empty, 54.65m);
             cl.Gift gift = new cl.Gift(5.00m, String.Empty, 1);
             cl.Basket basket = new cl.Basket();
@@ -34,10 +23,9 @@ namespace WiggleTests
             basket.AddItemToBuy(item2);
             basket.AddGift(gift, false);
             basket.CalcTotal();
-            basket.CheckOffer();//TODO do I need to call Check offer?
 
             //Assert
-            Assert.AreSame(String.Empty, basket.VoucherMessage);
+            Assert.AreEqual(String.Empty, basket.VoucherMessage);
             Assert.AreEqual(expectSum, basket.BasketTotal);
         }
 
@@ -57,10 +45,9 @@ namespace WiggleTests
             basket.AddItemToBuy(item2);
             basket.ApplyOffer(offer);
             basket.CalcTotal();
-            basket.CheckOffer();//TODO do I need to call Check offer?
 
             //Assert
-            Assert.AreSame(expectMsg, basket.VoucherMessage);
+            Assert.AreEqual(expectMsg, basket.VoucherMessage);
             Assert.AreEqual(expectSum, basket.BasketTotal);
         }
 
@@ -79,12 +66,12 @@ namespace WiggleTests
             //Act
             basket.AddItemToBuy(item1);
             basket.AddItemToBuy(item2);
+            basket.AddItemToBuy(item3);
             basket.ApplyOffer(offer);
-            basket.CalcTotal(); 
-            basket.CheckOffer();//TODO do I need to call Check offer?
+            basket.CalcTotal();
 
             //Assert
-            Assert.AreSame(expectMsg, basket.VoucherMessage);
+            Assert.AreEqual(expectMsg, basket.VoucherMessage);
             Assert.AreEqual(expectSum, basket.BasketTotal);
         }
 
@@ -106,10 +93,9 @@ namespace WiggleTests
             basket.AddGift(gift, false);
             basket.ApplyOffer(offer);
             basket.CalcTotal();
-            basket.CheckOffer();//TODO do I need to call Check offer?
 
             //Assert
-            Assert.AreSame(expectMsg, basket.VoucherMessage);
+            Assert.AreEqual(expectMsg, basket.VoucherMessage);
             Assert.AreEqual(expectSum, basket.BasketTotal);
         }
 
@@ -129,10 +115,9 @@ namespace WiggleTests
             basket.AddGift(gift, true);
             basket.ApplyOffer(offer);
             basket.CalcTotal();
-            basket.CheckOffer();//TODO do I need to call Check offer?
 
             //Assert
-            Assert.AreSame(expectMsg, basket.VoucherMessage);
+            Assert.AreEqual(expectMsg, basket.VoucherMessage);
             Assert.AreEqual(expectSum, basket.BasketTotal);
         }
 
