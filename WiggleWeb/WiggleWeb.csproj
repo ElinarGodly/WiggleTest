@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="default.css" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -87,6 +88,16 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationVariables\ApplicationVariables.csproj">
+      <Project>{b01e7164-236f-4e38-8c90-b9d3e20a9975}</Project>
+      <Name>ApplicationVariables</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WiggleBusinessLogic\WiggleBusinessLogic.csproj">
+      <Project>{59387b92-f63a-4ed3-9982-0f1140b142af}</Project>
+      <Name>WiggleBusinessLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

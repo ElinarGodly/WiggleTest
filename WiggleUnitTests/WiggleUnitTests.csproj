@@ -55,9 +55,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationVariables\ApplicationVariables.csproj">
+      <Project>{b01e7164-236f-4e38-8c90-b9d3e20a9975}</Project>
+      <Name>ApplicationVariables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WiggleClasses\WiggleClasses.csproj">
       <Project>{a09cff52-3f55-4c50-bd6f-4495acb771cb}</Project>
       <Name>WiggleClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WiggleData\WiggleData.csproj">
+      <Project>{e87e419f-2b23-4df8-82e0-2c7c8ccb12ae}</Project>
+      <Name>WiggleData</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

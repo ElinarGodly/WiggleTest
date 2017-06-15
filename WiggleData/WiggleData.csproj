@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{59387B92-F63A-4ED3-9982-0F1140B142AF}</ProjectGuid>
+    <ProjectGuid>{E87E419F-2B23-4DF8-82E0-2C7C8CCB12AE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WiggleBusinessLogic</RootNamespace>
-    <AssemblyName>WiggleBusinessLogic</AssemblyName>
+    <RootNamespace>WiggleData</RootNamespace>
+    <AssemblyName>WiggleData</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusLayer.cs" />
+    <Compile Include="DataLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,10 +51,6 @@
     <ProjectReference Include="..\WiggleClasses\WiggleClasses.csproj">
       <Project>{a09cff52-3f55-4c50-bd6f-4495acb771cb}</Project>
       <Name>WiggleClasses</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WiggleData\WiggleData.csproj">
-      <Project>{e87e419f-2b23-4df8-82e0-2c7c8ccb12ae}</Project>
-      <Name>WiggleData</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

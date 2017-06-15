@@ -1,0 +1,23 @@
+﻿body {
+}
+
+.label{
+    display:inline-block;
+    text-align: right;
+}
+
+[id*='tb']{
+    width: 150px;
+
+}
+
+[id='panelChoice']{
+    display:inline-block;
+    width: inherit;
+}
+
+.panel{
+    display: inline-block;
+    width: 300px;
+    font: bold;
+}

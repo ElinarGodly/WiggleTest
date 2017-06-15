@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using av = ApplicationVariables.AV.ErrorMessages;
 
 namespace WiggleClasses
 {
@@ -37,7 +38,7 @@ namespace WiggleClasses
                     break;
                 }
             }
-            if (isNewItem == true)
+            if (isNewItem)
                 this.BuyItems.Add(inputItem);
         }
 
@@ -61,7 +62,7 @@ namespace WiggleClasses
                     break;
                 }
             }
-            if (isNewGift == true)
+            if (isNewGift)
                 whereToAdd.Add(inputGift);
         }
 
@@ -120,70 +121,17 @@ namespace WiggleClasses
                 else if (offerSubset == true)
                 {
                     decimal change = (this.BuyItems[itemIndex].Value < Offer.Value) ?
-                                        this.BuyItems[itemIndex].Value : this.BuyItems[itemIndex].Value - Offer.Value;
+                                        this.BuyItems[itemIndex].Value : this.BuyItems[itemIndex].Value - Offer.Value; // TODO - check if the precision is 0.00 or is more 0.000->
                     this.BasketTotal -= change;
                 }
                 else
-                    this.VoucherMessage = String.Format("There are no products in your basket applicable to Voucher {0}.", Offer.Code);
+                    this.VoucherMessage = String.Format(av.SubsetTemplate, Offer.Code);
             }
             else
             {
-                decimal needed = (Offer.Threshold - this.BasketTotal) + 0.01m;
-                this.VoucherMessage = String.Format(
-                    "You have not reached the spend threshold for voucher {0}. Spend another £{1} to receive £{2} discount from your basket total."
-                    , Offer.Code, needed, Offer.Value);
+                decimal needed = (Offer.Threshold - this.BasketTotal) + 0.01m; // -- This 0.01 is used to display proper error.
+                this.VoucherMessage = String.Format(av.SpendThresholdTemplate, Offer.Code, needed, Offer.Value);
             }
         }
     }
-
-    public class Item
-    {
-        public int Qty { get; set; }
-        public string Name { get; set; }
-        public string Subset { get; set; }
-        public decimal Value { get; set; }
-
-        public Item(int qty, string name, string subset, decimal value)
-        {
-            this.Qty = qty;
-            this.Name = name;
-            this.Subset = subset;
-            this.Value = value;
-        }
-    }
-
-    public class Gift
-    {
-        public decimal Value { get; set; }
-        public string Code { get; set; }
-        public int Qty { get; set; }
-
-        public Gift(decimal value, string code, int qty)
-        {
-            this.Value = value;
-            if (code == string.Empty) this.Code = "XXX-XXX";
-            else this.Code = code;
-            this.Qty = qty;
-        }
-    }
-
-    public class Offer
-    {
-        public decimal Value { get; set; }
-        public string Code { get; set; }
-        public decimal Threshold { get; set; }
-        public string Subset { get; set; }
-
-        public Offer() { }
-
-        public Offer(decimal value, string code, decimal threshold, string subset)
-        {
-            this.Value = value;
-            if (code == string.Empty) this.Code = "YYY-YYY";
-            else this.Code = code;
-            this.Threshold = threshold;
-            this.Subset = subset;
-        }
-    }
 }
-

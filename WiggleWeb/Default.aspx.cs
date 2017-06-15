@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using avSV = ApplicationVariables.AV.SystemValues;
+using bl = WiggleBusinessLogic.BusLayer;
+using dl = WiggleData.DataLayer;
+using cl = WiggleClasses;
 
 namespace WiggleBasketWebPage
 {
@@ -11,60 +15,105 @@ namespace WiggleBasketWebPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack == true)
-            {
-                DropDownList drop = Page.FindControl("DropDownAddOptions") as DropDownList;
-                int index = drop.SelectedIndex;
-                switch (index)
-                {
-                    case 1:
-                        BuyItemPanelLoad();
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                }
+            //if (IsPostBack == true)
+            //{
 
-            }
-            else
-            {
-                List<string> ddl = new List<string>() { "Add Item to Buy", "Add Gift to Buy", "Apply gift voucher", "Apply offer voucher" };
-                populateDropDownList("DropDownAddOptions", ddl);
-            }
+            //}
+            //else
+            //{
+            //    bl bl1 = new bl();
+            //    populateDropDownList(avSV.DropDownLists.Vouchers.ControlID, bl1.GetItems);
+            //}
         }
 
-        private void BuyItemPanelLoad()
+        protected void rblCreateChoice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TextBox qty = new TextBox();
-            qty.Text = "Quontity";
-            qty.ID = "tb_qty";
-            pnlGetInfo.Controls.Add(qty);
-            TextBox name = new TextBox();
-            name.Text = "Product Name";
-            name.ID = "tb_name";
-            pnlGetInfo.Controls.Add(name);
-            TextBox subset = new TextBox();
-            subset.Text = "Product SubSet";
-            subset.ID = "tb_subset";
-            pnlGetInfo.Controls.Add(subset);
-            TextBox value = new TextBox();
-            value.Text = "Product Value";
-            value.ID = "tb_value";
-            pnlGetInfo.Controls.Add(value);
-            btn_Add.Visible = true;
+            string selectedValue = rblCreateChoice.SelectedValue;
+            
+            switch (selectedValue)
+            {
+                case avSV.RadioButtonList.Gift:
+                    panelGift.Visible = true;
+                    panelItem.Visible = false;
+                    panelOffer.Visible = false;
+                    btnApply.Enabled = true;
+                    btnBuy.Enabled = true;
+                    break;
+                case avSV.RadioButtonList.Item:
+                    panelGift.Visible = false;
+                    panelItem.Visible = true;
+                    panelOffer.Visible = false;
+                    btnApply.Enabled = false;
+                    btnBuy.Enabled = true;
+                    break;
+                case avSV.RadioButtonList.Offer:
+                    panelGift.Visible = false;
+                    panelItem.Visible = false;
+                    panelOffer.Visible = true;
+                    btnApply.Enabled = true;
+                    btnBuy.Enabled = false;
+                    break;
+            }
+            //btnApply.Visible = true; // TODO check if its not possible 
+            //btnBuy.Visible = true;
         }
 
+        //protected void btnAddNew_Click(object sender, EventArgs e) //TODO remove or keep
+        //{
 
-        protected void populateDropDownList<T>(string controlID, List<T> datasource)
+        //}
+
+        private void AddRow()
         {
-            DropDownList ddl = Page.FindControl(controlID) as DropDownList;
-            ddl.DataSource = datasource;
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("choose what to add", "NOT SELECTED"));
-            ddl.SelectedIndex = 0;
+            // add a row with cells with the approprioate values
         }
+
+        private void qtyChanged(string tbID, int qty)
+        {
+            //change qty in basket
+            //CalcTotal
+            //update Total
+        }
+
+        private void TableHeaders()
+        {
+            tblBasket.Visible = true;
+            TableHeaderRow header = new TableHeaderRow();
+            header.Font.Bold = true;
+
+            for (int i = 0; i < avSV.TableValues.HeaderCells.Count; i++)
+            {
+                TableCell cell = new TableCell();
+                cell.Text = avSV.TableValues.HeaderCells[i];
+                header.Cells.Add(cell);
+            }
+            tblBasket.Rows.Add(header);
+        }
+
+
+
+        protected void btnBuy_Click(object sender, EventArgs e)
+        {
+            if (!tblBasket.Visible) TableHeaders();
+            
+
+        }
+
+        protected void btnApply_Click(object sender, EventArgs e)
+        {
+            if (!tblBasket.Visible) TableHeaders();
+            //TODO check if values are not filled and place random from the datalayer lists if ()
+        }
+
+        //protected void populateDropDownList<T>(string controlID, List<T> datasource)
+        //{
+        //    DropDownList ddl = Page.FindControl(controlID) as DropDownList;
+        //    ddl.DataSource = datasource;
+        //    ddl.DataBind();
+        //    ddl.Items.Insert(0, new ListItem("choose what to add", "NOT SELECTED"));
+        //    ddl.SelectedIndex = 0;
+        //}
+
+
     }
 }

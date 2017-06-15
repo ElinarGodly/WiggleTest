@@ -40,8 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="classes.cs" />
+    <Compile Include="Basket.cs" />
+    <Compile Include="Offer.cs" />
+    <Compile Include="Gift.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationVariables\ApplicationVariables.csproj">
+      <Project>{b01e7164-236f-4e38-8c90-b9d3e20a9975}</Project>
+      <Name>ApplicationVariables</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
