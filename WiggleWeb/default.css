@@ -5,43 +5,23 @@
 
 [id*='tb']{
     width: 150px;
-
 }
 
 [id='panelChoice']{
     display:inline-block;
     width: inherit;
+    vertical-align:top;
 }
 
 .panel{
     display: inline-block;
     width: 300px;
     font: bold;
+    vertical-align: top;
 }
-
-[id='tblBasket']{
+#tblBasket{
     width: 600px;
-    border: 1px solid;
-}
-
-[id*='rowItem'] {
-    background-color: lawngreen;
-    border-width: 2px;
-}
-
-[id*='rowApply'] {
-    background-color: deepskyblue;
-    border: 2px dashed;
-}
-
-[id*='rowError'] {
-    background-color: red;
-    border: 2px dashed;
-}
-
-[id*='rowTotal'] {
-    background-color: yellow;
-    border: 2px dashed;
+    border: 2px solid;
 }
 
 

@@ -69,7 +69,7 @@
                     <asp:TextBox ID="tbOfferSubset" runat="server"></asp:TextBox>
                 </div>
             </asp:Panel>
-            <asp:Panel ID="panelDefault" runat ="server" Visible="false" CssClass="panel">
+            <asp:Panel ID="panelDefault" runat ="server" Visible="true" CssClass="panel">
                 <asp:RadioButtonList ID="rblDefaultChoice" runat="server" OnSelectedIndexChanged="rblDefaultChoice_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Text ="Basket 1"/>
                     <asp:ListItem Text ="Basket 2"/>
