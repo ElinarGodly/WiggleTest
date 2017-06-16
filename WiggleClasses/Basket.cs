@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using av = ApplicationVariables.AV.SystemValues.ErrorMessages;
 
 namespace WiggleClasses
@@ -30,14 +27,13 @@ namespace WiggleClasses
         {
             bool isNewItem = true;
             foreach (var item in BuyItems)
-            {
                 if (item.Name == inputItem.Name)
                 {
                     item.Qty += inputItem.Qty;
                     isNewItem = false;
                     break;
                 }
-            }
+
             if (isNewItem)
                 this.BuyItems.Add(inputItem);
         }
@@ -54,14 +50,13 @@ namespace WiggleClasses
         {
             bool isNewGift = true;
             foreach (var gift in whereToAdd)
-            {
                 if (gift.Value == inputGift.Value)
                 {
                     gift.Qty += inputGift.Qty;
                     isNewGift = false;
                     break;
                 }
-            }
+
             if (isNewGift)
                 whereToAdd.Add(inputGift);
         }
@@ -77,7 +72,7 @@ namespace WiggleClasses
             //sum item values*qty and check if any is applicable for offer subtype discount and if such offer is added
             int itemIndex = 0;
             bool offerSubset = false;
-            this.BasketTotal = 0.00m; //TODO should this be moved? to AV
+            this.BasketTotal = 0.00m;
             foreach (var item in this.BuyItems)
             {
                 if (item.Subset == Offer.Subset)
@@ -101,11 +96,16 @@ namespace WiggleClasses
 
             //applies the gift vouchers to the item values
             foreach (var gift in this.ApplyGift)
+            {
                 this.BasketTotal -= gift.Value * gift.Qty;
-
+                if (this.BasketTotal < 0)
+                {
+                    this.BasketTotal = 0.00m;
+                    this.VoucherMessage = av.GiftFailApply;
+                }
+            }
 
             //adds the cost for the gift vouchers to be purchased
-
             foreach (var gift in this.BuyGifts)
                 this.BasketTotal += gift.Value * gift.Qty;
 
@@ -119,10 +119,10 @@ namespace WiggleClasses
                 {
                     this.BasketTotal -= Offer.Value;
                 }
-                else if (offerSubset == true)
+                else if (offerSubset)
                 {
                     decimal change = (this.BuyItems[itemIndex].Value < Offer.Value) ?
-                                        this.BuyItems[itemIndex].Value : this.BuyItems[itemIndex].Value - Offer.Value; // TODO - check if the precision is 0.00 or is more 0.000->
+                                        this.BuyItems[itemIndex].Value : this.BuyItems[itemIndex].Value - Offer.Value;
                     this.BasketTotal -= change;
                 }
                 else
@@ -130,7 +130,7 @@ namespace WiggleClasses
             }
             else
             {
-                decimal needed = (Offer.Threshold - this.BasketTotal) + 0.01m; // This 0.01 is used to display proper error.
+                decimal needed = (Offer.Threshold - this.BasketTotal) + 0.01m; // This 0.01 is used to display proper error message.
                 this.VoucherMessage = String.Format(av.SpendThresholdTemplate, Offer.Code, needed, Offer.Value);
             }
         }

@@ -77,7 +77,6 @@
                     <asp:ListItem Text ="Basket 4"/>
                     <asp:ListItem Text ="Basket 5"/>
                 </asp:RadioButtonList>
-
             </asp:Panel>
         </div>
         <div>

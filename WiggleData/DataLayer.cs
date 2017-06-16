@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using cl = WiggleClasses;
 
 namespace WiggleData
@@ -14,7 +11,7 @@ namespace WiggleData
         public DataLayer()
         {
             defaultBaskets = new List<cl.Basket>();
-
+            
             //Basket1 
             cl.Basket basket = new cl.Basket();
             cl.Item item1 = new cl.Item(1, "Hat", String.Empty, 10.50m);
@@ -73,7 +70,7 @@ namespace WiggleData
             basket.AddItemToBuy(item1);
             basket.AddGift(gift, true);
             basket.ApplyOffer(offer);
-            basket.CalcTotal(); //todo remove
+            basket.CalcTotal();
             defaultBaskets.Add(basket);
         }
 

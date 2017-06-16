@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ApplicationVariables
 {
@@ -19,76 +15,55 @@ namespace ApplicationVariables
 
         public struct SystemValues
         {
-            public struct DropDownLists // TODO remove or keep
-            {
-                public struct Items
-                {
-                    public static string ControlID = @"ddlItems";
-                    
-                }
-
-                public struct Vouchers
-                {
-                    public static string ControlID = @"ddlVouchers";
-                }
-
-            }
-
             public struct RadioButtonList
             {
-                public const string Gift = @"gift";
-                public const string Item = @"item";
-                public const string Offer = @"offer";
-                public const string Default = @"default";
+                public struct Gift
+                {
+                    public const string btn = @"gift";
+                    public static List<bool> setVE = new List<bool> { true, false, false, false, true, true}; 
+                }
+
+                public struct Item
+                {
+                    public const string btn = @"item";
+                    public static List<bool> setVE = new List<bool> { false, true, false, false, true, false};
+                }
+                
+                public struct Offer
+                {
+                    public const string btn = @"offer";
+                    public static List<bool> setVE = new List<bool> { false, false, true, false, false, true};
+                }
+                
+                public struct Default
+                {
+                    public const string btn = @"default"; //TODO think of a better name
+                    public static List<bool> setVE = new List<bool> { false, false, false, true, false, false};
+                }
+                
             }
 
             public struct TableValues
-            {
-                public struct RowIDs
+            {               
+                public struct Templates
                 {
-                    public static string rowBuyTmpl = @"rowItem{0}";
-                    public static string rowApplyTmpl = @"rowApply{0}";
-                    public static string rowError = @"rowError";
-                    public static string rowTotal = @"rowTotal";
+                    public static string itemNoSub = @"{0}";
+                    public static string itemWithSub = @"{0} ({1} Category of Product)";
+                    public static string giftItem = @"£{0} Gift Voucher";
+                    public static string giftVoucher = @"{0} x £{1} Gift Voucher {2} applied.";
+                    public static string offerNoSub = @"1 x £{0} off baskets over £{1} Offer Voucher {2} applied.";
+                    public static string offerWithSub = @"1 x £{0} off {1} in baskets over £{2} Offer Voucher {3} applied.";
+                    public static string totalSum = @"Total: £{0}";
                 }
-
-                public struct ItemBuy
-                {
-                    public static string templEmpty = @"{0}";
-                    public static string templFull = @"{0} ({1} Category of Product)";
-                }
-
-                public struct GiftBuy // TODO check if they can be just string not struct
-                {
-                    public static string tepml = @"£{0} Gift Voucher";
-                }
-
-                public struct ApplyOffer
-                {
-                    public static string tepmlOffer = @"1 x £{0} off baskets over £{1} Offer Voucher {2} applied";
-                    public static string templOfferSubset = @"1 x £{0} off {1} in baskets over £{2} Offer Voucher {3} applied";
-                    public static object[] args = { @"offer.qty", @"offer.Value", @"offer.Threshold", @"offer.Code" };//TODO can this work if not remove
-                }
-
-                public static string sum = @"Total: £{0}";
-
 
                 public static List<string> HeaderCells = new List<string> { "Object Information", "Qty Control", "Value" };
             }
-
-            public struct DataLayerData // TODO remove or keep
-            {
-                public const int Gift = 0;
-                public const int Items = 1;
-                public const int Offers = 2;
-            }
-
+            
             public struct ErrorMessages
             {
                 public static string SpendThresholdTemplate = "You have not reached the spend threshold for voucher {0}. Spend another £{1} to receive £{2} discount from your basket total.";
                 public static string SubsetTemplate = "There are no products in your basket applicable to Voucher {0}.";
-
-
+                public static string GiftFailApply = "There are no products in your basket to use your gift voucher with.";
             }
         }
 

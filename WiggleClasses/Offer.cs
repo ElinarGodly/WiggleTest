@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using av = ApplicationVariables.AV.DefaultValues.VoucherCodes;
+﻿using av = ApplicationVariables.AV.DefaultValues.VoucherCodes;
 
 namespace WiggleClasses
 {
