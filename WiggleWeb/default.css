@@ -1,7 +1,4 @@
-﻿body {
-}
-
-.label{
+﻿.label{
     display:inline-block;
     text-align: right;
 }
@@ -21,3 +18,30 @@
     width: 300px;
     font: bold;
 }
+
+[id='tblBasket']{
+    width: 600px;
+    border: 1px solid;
+}
+
+[id*='rowItem'] {
+    background-color: lawngreen;
+    border-width: 2px;
+}
+
+[id*='rowApply'] {
+    background-color: deepskyblue;
+    border: 2px dashed;
+}
+
+[id*='rowError'] {
+    background-color: red;
+    border: 2px dashed;
+}
+
+[id*='rowTotal'] {
+    background-color: yellow;
+    border: 2px dashed;
+}
+
+

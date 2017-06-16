@@ -98,6 +98,14 @@
       <Project>{59387b92-f63a-4ed3-9982-0f1140b142af}</Project>
       <Name>WiggleBusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WiggleClasses\WiggleClasses.csproj">
+      <Project>{a09cff52-3f55-4c50-bd6f-4495acb771cb}</Project>
+      <Name>WiggleClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WiggleData\WiggleData.csproj">
+      <Project>{e87e419f-2b23-4df8-82e0-2c7c8ccb12ae}</Project>
+      <Name>WiggleData</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -274,6 +274,24 @@ namespace WiggleBasketWebPage {
         protected global::System.Web.UI.WebControls.TextBox tbOfferSubset;
         
         /// <summary>
+        /// panelDefault control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelDefault;
+        
+        /// <summary>
+        /// rblDefaultChoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rblDefaultChoice;
+        
+        /// <summary>
         /// btnBuy control.
         /// </summary>
         /// <remarks>

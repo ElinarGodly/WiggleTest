@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using av = ApplicationVariables.AV.ErrorMessages;
+using av = ApplicationVariables.AV.SystemValues.ErrorMessages;
 
 namespace WiggleClasses
 {
@@ -77,6 +77,7 @@ namespace WiggleClasses
             //sum item values*qty and check if any is applicable for offer subtype discount and if such offer is added
             int itemIndex = 0;
             bool offerSubset = false;
+            this.BasketTotal = 0.00m; //TODO should this be moved? to AV
             foreach (var item in this.BuyItems)
             {
                 if (item.Subset == Offer.Subset)
@@ -129,7 +130,7 @@ namespace WiggleClasses
             }
             else
             {
-                decimal needed = (Offer.Threshold - this.BasketTotal) + 0.01m; // -- This 0.01 is used to display proper error.
+                decimal needed = (Offer.Threshold - this.BasketTotal) + 0.01m; // This 0.01 is used to display proper error.
                 this.VoucherMessage = String.Format(av.SpendThresholdTemplate, Offer.Code, needed, Offer.Value);
             }
         }

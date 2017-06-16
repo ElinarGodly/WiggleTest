@@ -11,15 +11,15 @@
     <form id="form1" runat="server">
         <div>
             <asp:Panel ID="panelChoice" runat="server">
-                <asp:Label ID="lblCreateChoice" runat="server">Pick to Create</asp:Label>
+                <asp:Label ID="lblCreateChoice" runat="server">Pick An Option</asp:Label>
                 <asp:RadioButtonList ID="rblCreateChoice" runat="server" TextAlign="Right" OnSelectedIndexChanged="rblCreateChoice_SelectedIndexChanged" AutoPostBack="true">
-                    <asp:ListItem Text="Gift" Value="gift" Selected="True" />
-                    <asp:ListItem Text="Item" Value="item" />
-                    <asp:ListItem Text="Offer" Value="offer" />
+                    <asp:ListItem Text="Gift" Value="gift"/>
+                    <asp:ListItem Text="Item" Value="item"/>
+                    <asp:ListItem Text="Offer" Value="offer"/>
+                    <asp:ListItem Text="Default" Value ="default"/>
                 </asp:RadioButtonList>
-                <%--<asp:Button ID="btnAddNew" runat="server" Text="Add New" OnClick="btnAddNew_Click" Visible="false" />--%>
             </asp:Panel>
-            <asp:Panel ID="panelGift" runat="server" Visible="true"  CssClass="panel">
+            <asp:Panel ID="panelGift" runat="server" Visible="false"  CssClass="panel">
                 <div>
                     <asp:Label ID="lblGiftCode" runat="server" CssClass="label">Gift Code</asp:Label>
                     <asp:TextBox ID="tbGiftCode" runat="server"></asp:TextBox>
@@ -32,7 +32,6 @@
                     <asp:Label ID="lblGiftQty" runat="server" CssClass="label">Gift Qty</asp:Label>
                     <asp:TextBox ID="tbGiftQty" runat="server"></asp:TextBox>
                 </div>
-
             </asp:Panel>
             <asp:Panel ID="panelItem" runat="server" Visible="false" CssClass="panel">
                 <div>
@@ -70,17 +69,21 @@
                     <asp:TextBox ID="tbOfferSubset" runat="server"></asp:TextBox>
                 </div>
             </asp:Panel>
+            <asp:Panel ID="panelDefault" runat ="server" Visible="false" CssClass="panel">
+                <asp:RadioButtonList ID="rblDefaultChoice" runat="server" OnSelectedIndexChanged="rblDefaultChoice_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:ListItem Text ="Basket 1"/>
+                    <asp:ListItem Text ="Basket 2"/>
+                    <asp:ListItem Text ="Basket 3"/>
+                    <asp:ListItem Text ="Basket 4"/>
+                    <asp:ListItem Text ="Basket 5"/>
+                </asp:RadioButtonList>
+
+            </asp:Panel>
         </div>
         <div>
             <asp:Button ID="btnBuy" runat ="server" Text="Buy" Enabled ="false" OnClick ="btnBuy_Click" />
             <asp:Button ID="btnApply" runat ="server" Text ="Apply" Enabled="false" OnClick ="btnApply_Click" />
         </div>
-        <%--<div>
-            <asp:Label ID="lblDdlItem" runat="server">Pick an Item</asp:Label>
-            <asp:DropDownList ID="ddlItems" runat="server" AutoPostBack="true"></asp:DropDownList>
-            <asp:Label ID="lblDdlVoucher" runat="server">Pick a Voucher</asp:Label>
-            <asp:DropDownList ID="ddlVouchers" runat="server" AutoPostBack="true"></asp:DropDownList>
-        </div>--%>
         <div>
             <asp:Table ID="tblBasket" runat="server" Visible="false"></asp:Table>
         </div>
