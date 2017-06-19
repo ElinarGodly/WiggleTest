@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
-using avT = ApplicationVariables.AV.SystemValues.TableValues;
-using avR = ApplicationVariables.AV.SystemValues.RadioButtonList;
+using avSV = ApplicationVariables.AV.SystemValues;
 using bl = WiggleBusinessLogic.BusLayer;
 using cl = WiggleClasses;
 using System.Collections.Generic;
@@ -18,21 +17,21 @@ namespace WiggleBasketWebPage
                 basket = new cl.Basket();
         }
 
-        private void AddItemToBasket()
+        private void AddItemToBasket()//TODO in BL
         {
             cl.Item item = new cl.Item(int.Parse(tbItemQty.Text), tbItemName.Text, tbItemSubset.Text, decimal.Parse(tbItemValue.Text));
             basket.AddItemToBuy(item);
             TableBasket(basket);
         }
 
-        private void AddGiftToBasket(bool buy)
+        private void AddGiftToBasket(bool buy)//TODO in BL
         {
             cl.Gift gift = new cl.Gift(decimal.Parse(tbGiftValue.Text), tbGiftCode.Text, int.Parse(tbGiftQty.Text));
             basket.AddGift(gift, buy);
             TableBasket(basket);
         }
 
-        private void AddOfferToBasket()
+        private void AddOfferToBasket() //TODO in BL
         {
             cl.Offer offer = new cl.Offer(decimal.Parse(tbOfferValue.Text),
                                         tbOfferCode.Text, decimal.Parse(tbOfferThreshold.Text), tbOfferSubset.Text);
@@ -59,12 +58,9 @@ namespace WiggleBasketWebPage
             if (basket.Offer.Code != null) AddRowApplyOffer(basket.Offer);
 
             if (basket.VoucherMessage != string.Empty)
-            {
                 AddErrorRow(basket.VoucherMessage);
-                AddTotalRow(basket.BasketTotal);
-            }
-            else
-                AddTotalRow(basket.BasketTotal);
+
+            AddTotalRow(basket.BasketTotal);
         }
         
         private void TableHeaders()
@@ -72,10 +68,10 @@ namespace WiggleBasketWebPage
             TableHeaderRow header = new TableHeaderRow();
             header.Font.Bold = true;
 
-            for (int i = 0; i < avT.HeaderCells.Count; i++)
+            for (int i = 0; i < avSV.TableValues.HeaderCells.Count; i++)
             {
                 TableCell cell = new TableCell();
-                cell.Text = avT.HeaderCells[i];
+                cell.Text = avSV.TableValues.HeaderCells[i];
                 header.Cells.Add(cell);
             }
             tblBasket.Rows.Add(header);
@@ -89,21 +85,50 @@ namespace WiggleBasketWebPage
             row.Cells.Add(cell);
         }
 
+        private void AddCellQty(int qty, TableRow row)
+        {
+            //AddCell(qty.ToString(), 0, row);
+            
+            TableCell cell = new TableCell();
+            Button btn = new Button();
+            Label lbl = new Label();
+            btn.ID = String.Format(avSV.Buttons.templ, row.ID, avSV.Buttons.delete);
+            cell.Controls.Add(btn);
+
+            btn = new Button();
+            btn.ID = String.Format(avSV.Buttons.templ, row.ID, avSV.Buttons.decrease);
+            cell.Controls.Add(btn);
+
+            lbl.Text = qty.ToString();
+            lbl.ID = String.Format(avSV.Buttons.templ, row.ID, avSV.Buttons.qtyLbl);
+            cell.Controls.Add(lbl);
+
+            btn = new Button();
+            btn.ID = String.Format(avSV.Buttons.templ, row.ID, avSV.Buttons.increase);
+            cell.Controls.Add(btn);
+
+            row.Cells.Add(cell);
+        }
+
         private void AddRowBuyItem(cl.Item item)
         {
             TableRow row = new TableRow();
-            AddCell((item.Subset == String.Empty) ? String.Format(avT.Templates.itemNoSub, item.Name) :
-                                    String.Format(avT.Templates.itemWithSub, item.Name, item.Subset), 0,row);
-            AddCell(item.Qty.ToString(), 0, row);
+            row.ID = String.Format(avSV.TableValues.RowLabels.rowBuy, tblBasket.Rows.Count);
+            AddCellQty(item.Qty, row);
+            AddCell((item.Subset == String.Empty) ? String.Format(avSV.TableValues.Templates.itemNoSub, item.Name) :
+                                    String.Format(avSV.TableValues.Templates.itemWithSub, item.Name, item.Subset), 0,row);
+            
             AddCell((item.Value * item.Qty).ToString(), 0, row);
             tblBasket.Rows.Add(row);
         }
 
+
         private void AddRowBuyGift(cl.Gift gift)
         {
             TableRow row = new TableRow();
-            AddCell(String.Format(avT.Templates.giftItem, gift.Value), 0, row);
-            AddCell(gift.Qty.ToString(), 0, row);
+            row.ID = String.Format(avSV.TableValues.RowLabels.rowBuy, tblBasket.Rows.Count);
+            AddCellQty (gift.Qty, row);
+            AddCell(String.Format(avSV.TableValues.Templates.giftItem, gift.Value), 0, row);
             AddCell((gift.Value * gift.Qty).ToString(), 0, row);
             tblBasket.Rows.Add(row);
         }
@@ -111,22 +136,26 @@ namespace WiggleBasketWebPage
         private void AddRowApplyGift(cl.Gift gift)
         {
             TableRow row = new TableRow();
-            AddCell(String.Format(avT.Templates.giftVoucher, gift.Qty, gift.Value, gift.Code), 3, row);
+            row.ID = String.Format(avSV.TableValues.RowLabels.rowApply, tblBasket.Rows.Count);
+            AddCellQty(gift.Qty, row);
+            AddCell(String.Format(avSV.TableValues.Templates.giftVoucher, gift.Value, gift.Code), 2, row);
             tblBasket.Rows.Add(row);
         }
 
         private void AddRowApplyOffer(cl.Offer offer)
         {
             TableRow row = new TableRow();
+            row.ID = avSV.TableValues.RowLabels.rowOffer;
             AddCell((offer.Subset == String.Empty) ?
-                    String.Format(avT.Templates.offerNoSub, offer.Value, offer.Threshold, offer.Code) :
-                    String.Format(avT.Templates.offerWithSub, offer.Value, offer.Subset, offer.Threshold, offer.Code), 3, row);
+                    String.Format(avSV.TableValues.Templates.offerNoSub, offer.Value, offer.Threshold, offer.Code) :
+                    String.Format(avSV.TableValues.Templates.offerWithSub, offer.Value, offer.Subset, offer.Threshold, offer.Code), 3, row);
             tblBasket.Rows.Add(row);
         }
 
         private void AddErrorRow(string voucherMessage)
         {
             TableRow row = new TableRow();
+            row.ID = avSV.TableValues.RowLabels.rowMsg;
             AddCell(voucherMessage, 3, row);
             tblBasket.Rows.Add(row);
         }
@@ -134,7 +163,8 @@ namespace WiggleBasketWebPage
         private void AddTotalRow(decimal total)
         {
             TableRow row = new TableRow();
-            AddCell(String.Format(avT.Templates.totalSum, total.ToString()),3,row);
+            row.ID = avSV.TableValues.RowLabels.rowTotal;
+            AddCell(String.Format(avSV.TableValues.Templates.totalSum, total.ToString()),3,row);
             tblBasket.Rows.Add(row);
         }
         #endregion
@@ -146,20 +176,21 @@ namespace WiggleBasketWebPage
 
             switch (selectedValue)
             {
-                case avR.Gift.btn:
-                    SetVisibleAndEnabled(avR.Gift.setVE);
+                case avSV.RadioButtonList.Gift.btn:
+                    SetVisibleAndEnabled(avSV.RadioButtonList.Gift.setVE);
                     TableBasket(basket);
                     break;
-                case avR.Item.btn:
-                    SetVisibleAndEnabled(avR.Item.setVE);
+                case avSV.RadioButtonList.Item.btn:
+                    SetVisibleAndEnabled(avSV.RadioButtonList.Item.setVE);
                     TableBasket(basket);
                     break;
-                case avR.Offer.btn:
-                    SetVisibleAndEnabled(avR.Offer.setVE);
+                case avSV.RadioButtonList.Offer.btn:
+                    SetVisibleAndEnabled(avSV.RadioButtonList.Offer.setVE);
                     TableBasket(basket);
                     break;
-                case avR.Default.btn:
-                    SetVisibleAndEnabled(avR.Default.setVE);
+                case avSV.RadioButtonList.Default.btn:
+                    SetVisibleAndEnabled(avSV.RadioButtonList.Default.setVE);
+                    rblDefaultChoice.ClearSelection();
                     break;
             }
         }
@@ -177,13 +208,13 @@ namespace WiggleBasketWebPage
 
         protected void btnBuy_Click(object sender, EventArgs e)
         {
-            if (rblCreateChoice.SelectedValue == avR.Item.btn) AddItemToBasket();
+            if (rblCreateChoice.SelectedValue == avSV.RadioButtonList.Item.btn) AddItemToBasket();
             else AddGiftToBasket(true);
         }
 
         protected void btnApply_Click(object sender, EventArgs e) 
         {
-            if (rblCreateChoice.SelectedValue == avR.Offer.btn) AddOfferToBasket();
+            if (rblCreateChoice.SelectedValue == avSV.RadioButtonList.Offer.btn) AddOfferToBasket();
             else AddGiftToBasket(false);
         }
 

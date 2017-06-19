@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Wiggle Basket Test</title>
-    <link rel="stylesheet" type="text/css" href="default.css" />
+    <link rel="stylesheet" type="text/css" href="GraphicResources\default.css" />
 </head>
 <body>
     <form id="form1" runat="server">

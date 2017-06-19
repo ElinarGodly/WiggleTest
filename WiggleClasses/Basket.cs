@@ -67,6 +67,21 @@ namespace WiggleClasses
                 this.Offer = voucher;
         }
 
+        public void DeleteBuy(int index, bool item)
+        {
+            if (item)
+                this.BuyItems.RemoveAt(index);
+            else
+                this.BuyGifts.RemoveAt(index);
+        }
+
+        public void DeleteApply(int? index, bool gift)
+        {
+            if (gift)
+                this.ApplyGift.RemoveAt((int)index);
+            else this.Offer = new Offer();
+        }
+
         public void CalcTotal()
         {
             //sum item values*qty and check if any is applicable for offer subtype discount and if such offer is added

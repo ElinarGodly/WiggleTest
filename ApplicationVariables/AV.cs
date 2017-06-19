@@ -13,8 +13,17 @@ namespace ApplicationVariables
             }
         }
 
-        public struct SystemValues
+        public struct SystemValues //TODO check variables names and methods for Capitals 
         {
+            public struct Buttons
+            {
+                public static string templ = "{0}{1}";
+                public static string delete = "Delete";
+                public static string decrease = "Left";
+                public static string increase = "Right";
+                public static string qtyLbl = "qtyLbl";
+            }
+
             public struct RadioButtonList
             {
                 public struct Gift
@@ -38,9 +47,8 @@ namespace ApplicationVariables
                 public struct Default
                 {
                     public const string btn = @"default"; //TODO think of a better name
-                    public static List<bool> setVE = new List<bool> { false, false, false, true, false, false};
+                    public static List<bool> setVE = new List<bool> { false, false, false, true, false, false}; //TODO remove plan document
                 }
-                
             }
 
             public struct TableValues
@@ -50,13 +58,23 @@ namespace ApplicationVariables
                     public static string itemNoSub = @"{0}";
                     public static string itemWithSub = @"{0} ({1} Category of Product)";
                     public static string giftItem = @"£{0} Gift Voucher";
-                    public static string giftVoucher = @"{0} x £{1} Gift Voucher {2} applied.";
-                    public static string offerNoSub = @"1 x £{0} off baskets over £{1} Offer Voucher {2} applied.";
-                    public static string offerWithSub = @"1 x £{0} off {1} in baskets over £{2} Offer Voucher {3} applied.";
+                    public static string giftVoucher = @"£{0} Gift Voucher {1} applied.";
+                    public static string offerNoSub = @"£{0} off baskets over £{1} Offer Voucher {2} applied.";
+                    public static string offerWithSub = @"£{0} off {1} in baskets over £{2} Offer Voucher {3} applied.";
                     public static string totalSum = @"Total: £{0}";
                 }
 
-                public static List<string> HeaderCells = new List<string> { "Object Information", "Qty Control", "Value" };
+                public struct RowLabels
+                {
+                    public static string rowBuy = "rowBuy{0}";
+                    public static string rowApply = "rowApply{0}";
+                    public static string rowOffer = "rowOffer";
+                    public static string rowMsg = "rowMsg";
+                    public static string rowTotal = "rowTotal";
+                }
+
+
+                public static List<string> HeaderCells = new List<string> { "Qty Control", "Information", "Value" }; //TODO check names
             }
             
             public struct ErrorMessages
