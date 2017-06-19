@@ -41,12 +41,12 @@ namespace WiggleClasses
         public void AddGift(Gift inputGift, bool toBuy)
         {
             if (toBuy == true)
-                AddGiftInBasket(inputGift, this.BuyGifts);
+                addGiftInBasket(inputGift, this.BuyGifts);
             else
-                AddGiftInBasket(inputGift, this.ApplyGift);
+                addGiftInBasket(inputGift, this.ApplyGift);
         }
 
-        private void AddGiftInBasket(Gift inputGift, List<Gift> whereToAdd)
+        private void addGiftInBasket(Gift inputGift, List<Gift> whereToAdd)
         {
             bool isNewGift = true;
             foreach (var gift in whereToAdd)
@@ -67,12 +67,28 @@ namespace WiggleClasses
                 this.Offer = voucher;
         }
 
+        public void DeleteBuy(int index, bool item)
+        {
+            if (item)
+                this.BuyItems.RemoveAt(index);
+            else
+                this.BuyGifts.RemoveAt(index);
+        }
+
+        public void DeleteApply(int? index, bool gift)
+        {
+            if (gift)
+                this.ApplyGift.RemoveAt((int)index);
+            else this.Offer = new Offer();
+        }
+
         public void CalcTotal()
         {
             //sum item values*qty and check if any is applicable for offer subtype discount and if such offer is added
             int itemIndex = 0;
             bool offerSubset = false;
             this.BasketTotal = 0.00m;
+            this.VoucherMessage = String.Empty;
             foreach (var item in this.BuyItems)
             {
                 if (item.Subset == Offer.Subset)
@@ -92,7 +108,7 @@ namespace WiggleClasses
 
             //given offerSubset (true/false) and itemIndex int this checks, applies and messages for the offer voucher cases
             if (this.Offer.Code != null)
-                CheckOffer(offerSubset, itemIndex);
+                checkOffer(offerSubset, itemIndex);
 
             //applies the gift vouchers to the item values
             foreach (var gift in this.ApplyGift)
@@ -111,7 +127,7 @@ namespace WiggleClasses
 
         }
 
-        private void CheckOffer(bool offerSubset, int itemIndex)
+        private void checkOffer(bool offerSubset, int itemIndex)
         {
             if (this.Offer.Threshold < this.BasketTotal)
             {
@@ -122,7 +138,7 @@ namespace WiggleClasses
                 else if (offerSubset)
                 {
                     decimal change = (this.BuyItems[itemIndex].Value < Offer.Value) ?
-                                        this.BuyItems[itemIndex].Value : this.BuyItems[itemIndex].Value - Offer.Value;
+                                        this.BuyItems[itemIndex].Value : Offer.Value;
                     this.BasketTotal -= change;
                 }
                 else

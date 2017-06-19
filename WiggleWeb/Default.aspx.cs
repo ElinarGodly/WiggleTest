@@ -1,87 +1,95 @@
 ﻿using System;
 using System.Web.UI.WebControls;
-using avT = ApplicationVariables.AV.SystemValues.TableValues;
-using avR = ApplicationVariables.AV.SystemValues.RadioButtonList;
-using bl = WiggleBusinessLogic.BusLayer;
+using avSV = ApplicationVariables.AV.SystemValues;
+using bl = WiggleBusinessLogic.BusinessLayer;
 using cl = WiggleClasses;
 using System.Collections.Generic;
+using System.Web.UI;
 
 namespace WiggleBasketWebPage
 {
     public partial class Default : System.Web.UI.Page
     {
-        private static cl.Basket basket;
+        private static cl.Basket cacheBasket;
+        private static bool lastDefault = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-                basket = new cl.Basket();
+                cacheBasket = new cl.Basket();
+            else
+                tableBasket(cacheBasket);
         }
-
-        private void AddItemToBasket()
+        
+        private void addItemToBasket()//TODO in BL
         {
             cl.Item item = new cl.Item(int.Parse(tbItemQty.Text), tbItemName.Text, tbItemSubset.Text, decimal.Parse(tbItemValue.Text));
-            basket.AddItemToBuy(item);
-            TableBasket(basket);
+            cacheBasket.AddItemToBuy(item);
+            tableBasket(cacheBasket);
         }
 
-        private void AddGiftToBasket(bool buy)
+        private void addGiftToBasket(bool buy)//TODO in BL
         {
             cl.Gift gift = new cl.Gift(decimal.Parse(tbGiftValue.Text), tbGiftCode.Text, int.Parse(tbGiftQty.Text));
-            basket.AddGift(gift, buy);
-            TableBasket(basket);
+            cacheBasket.AddGift(gift, buy);
+            tableBasket(cacheBasket);
         }
 
-        private void AddOfferToBasket()
+        private void addOfferToBasket() //TODO in BL
         {
             cl.Offer offer = new cl.Offer(decimal.Parse(tbOfferValue.Text),
                                         tbOfferCode.Text, decimal.Parse(tbOfferThreshold.Text), tbOfferSubset.Text);
-            basket.ApplyOffer(offer);
-            TableBasket(basket);
+            cacheBasket.ApplyOffer(offer);
+            tableBasket(cacheBasket);
         }
 
         #region Table
-        private void TableBasket(cl.Basket basket)
+        private void tableBasket(cl.Basket basket) //TODO in BL partial
         {
+
+            while(tblBasket.Rows.Count!=0)
+            {
+                tblBasket.Rows.RemoveAt(0);
+            }
+
             basket.CalcTotal();
             tblBasket.Visible = true;
-            TableHeaders();
+            tableHeaders();
 
             foreach (var item in basket.BuyItems)
-                AddRowBuyItem(item);
+                addRowBuyItem(item);
 
             foreach (var gift in basket.BuyGifts)
-                AddRowBuyGift(gift);
+                addRowBuyGift(gift);
 
             foreach (var gift in basket.ApplyGift)
-                AddRowApplyGift(gift);
+                addRowApplyGift(gift);
 
-            if (basket.Offer.Code != null) AddRowApplyOffer(basket.Offer);
+            if (basket.Offer.Code != null) addRowApplyOffer(basket.Offer);
 
             if (basket.VoucherMessage != string.Empty)
-            {
-                AddErrorRow(basket.VoucherMessage);
-                AddTotalRow(basket.BasketTotal);
-            }
-            else
-                AddTotalRow(basket.BasketTotal);
+                addErrorRow(basket.VoucherMessage);
+
+            addTotalRow(basket.BasketTotal);
+
+            cacheBasket = basket; 
         }
         
-        private void TableHeaders()
+        private void tableHeaders()
         {
             TableHeaderRow header = new TableHeaderRow();
             header.Font.Bold = true;
 
-            for (int i = 0; i < avT.HeaderCells.Count; i++)
+            for (int i = 0; i < avSV.TableValues.HeaderCells.Count; i++)
             {
                 TableCell cell = new TableCell();
-                cell.Text = avT.HeaderCells[i];
+                cell.Text = avSV.TableValues.HeaderCells[i];
                 header.Cells.Add(cell);
             }
             tblBasket.Rows.Add(header);
         }
 
-        private void AddCell(string text, int colSpan, TableRow row)
+        private void addCell (string text, int colSpan, TableRow row)
         {
             TableCell cell = new TableCell();
             cell.Text = text;
@@ -89,108 +97,226 @@ namespace WiggleBasketWebPage
             row.Cells.Add(cell);
         }
 
-        private void AddRowBuyItem(cl.Item item)
+        private void addCellQty(int qty, TableRow row) //TODO can it be refactored?
+        {
+            TableCell cell = new TableCell();
+            ImageButton btn = new ImageButton();
+            Label lbl = new Label();
+            btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Delete);
+            btn.ImageUrl = avSV.Paths.DeleteButtonImage;
+            btn.Click += imgDelete_Click;
+            cell.Controls.Add(btn);
+
+            btn = new ImageButton();
+            btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Decrease);
+            btn.ImageUrl = avSV.Paths.DecreaseButtonImage;
+            btn.Click += btnDecrease_Click;
+            cell.Controls.Add(btn);
+
+            lbl.Text = qty.ToString();
+            lbl.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.QuantityLabel);
+            cell.Controls.Add(lbl);
+
+            btn = new ImageButton();
+            btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Increase);
+            btn.ImageUrl = avSV.Paths.IncreaseButtonImage;
+            btn.Click += btnIncrease_Click;
+            cell.Controls.Add(btn);
+
+            row.Cells.Add(cell);
+        }
+
+        private void addRowBuyItem(cl.Item item)
         {
             TableRow row = new TableRow();
-            AddCell((item.Subset == String.Empty) ? String.Format(avT.Templates.itemNoSub, item.Name) :
-                                    String.Format(avT.Templates.itemWithSub, item.Name, item.Subset), 0,row);
-            AddCell(item.Qty.ToString(), 0, row);
-            AddCell((item.Value * item.Qty).ToString(), 0, row);
+            row.ID = String.Format(avSV.TableValues.RowLabels.RowBuy, tblBasket.Rows.Count);
+            addCellQty(item.Qty, row);
+            addCell((item.Subset == String.Empty) ? String.Format(avSV.TableValues.Templates.ItemNoSub, item.Name) :
+                                    String.Format(avSV.TableValues.Templates.ItemWithSub, item.Name, item.Subset), 0,row);
+            
+            addCell((item.Value * item.Qty).ToString(), 0, row);
             tblBasket.Rows.Add(row);
         }
 
-        private void AddRowBuyGift(cl.Gift gift)
+
+        private void addRowBuyGift(cl.Gift gift)
         {
             TableRow row = new TableRow();
-            AddCell(String.Format(avT.Templates.giftItem, gift.Value), 0, row);
-            AddCell(gift.Qty.ToString(), 0, row);
-            AddCell((gift.Value * gift.Qty).ToString(), 0, row);
+            row.ID = String.Format(avSV.TableValues.RowLabels.RowBuy, tblBasket.Rows.Count);
+            addCellQty (gift.Qty, row);
+            addCell(String.Format(avSV.TableValues.Templates.GiftItem, gift.Value), 0, row);
+            addCell((gift.Value * gift.Qty).ToString(), 0, row);
             tblBasket.Rows.Add(row);
         }
         
-        private void AddRowApplyGift(cl.Gift gift)
+        private void addRowApplyGift(cl.Gift gift)
         {
             TableRow row = new TableRow();
-            AddCell(String.Format(avT.Templates.giftVoucher, gift.Qty, gift.Value, gift.Code), 3, row);
+            row.ID = String.Format(avSV.TableValues.RowLabels.RowApply, tblBasket.Rows.Count);
+            addCellQty(gift.Qty, row);
+            addCell(String.Format(avSV.TableValues.Templates.GiftVoucher, gift.Value, gift.Code), 2, row);
             tblBasket.Rows.Add(row);
         }
 
-        private void AddRowApplyOffer(cl.Offer offer)
+        private void addRowApplyOffer(cl.Offer offer)
         {
             TableRow row = new TableRow();
-            AddCell((offer.Subset == String.Empty) ?
-                    String.Format(avT.Templates.offerNoSub, offer.Value, offer.Threshold, offer.Code) :
-                    String.Format(avT.Templates.offerWithSub, offer.Value, offer.Subset, offer.Threshold, offer.Code), 3, row);
+            row.ID = avSV.TableValues.RowLabels.RowOffer;
+            addCell((offer.Subset == String.Empty) ?
+                    String.Format(avSV.TableValues.Templates.OfferNoSub, offer.Value, offer.Threshold, offer.Code) :
+                    String.Format(avSV.TableValues.Templates.OfferWithSub, offer.Value, offer.Subset, offer.Threshold, offer.Code), 3, row);
             tblBasket.Rows.Add(row);
         }
 
-        private void AddErrorRow(string voucherMessage)
+        private void addErrorRow(string voucherMessage)
         {
             TableRow row = new TableRow();
-            AddCell(voucherMessage, 3, row);
+            row.ID = avSV.TableValues.RowLabels.RowMsg;
+            addCell(voucherMessage, 3, row);
             tblBasket.Rows.Add(row);
         }
 
-        private void AddTotalRow(decimal total)
+        private void addTotalRow(decimal total)
         {
             TableRow row = new TableRow();
-            AddCell(String.Format(avT.Templates.totalSum, total.ToString()),3,row);
+            row.ID = avSV.TableValues.RowLabels.RowTotal;
+            addCell(String.Format(avSV.TableValues.Templates.TotalSum, total.ToString()),3,row);
             tblBasket.Rows.Add(row);
         }
         #endregion
 
         #region Events
-        protected void rblCreateChoice_SelectedIndexChanged(object sender, EventArgs e)
+        protected void rblCreateChoice_SelectedIndexChanged(object sender, EventArgs e)//TODO make extensible testing on adding new items
         {
             string selectedValue = rblCreateChoice.SelectedValue;
+            if (lastDefault) cacheBasket = new cl.Basket();
 
             switch (selectedValue)
             {
-                case avR.Gift.btn:
-                    SetVisibleAndEnabled(avR.Gift.setVE);
-                    TableBasket(basket);
+                case avSV.RadioButtonList.Gift.Button:
+                    lastDefault = false;
+                    setVisibleAndEnabled(avSV.RadioButtonList.Gift.setVE);
+                    tableBasket(cacheBasket);
                     break;
-                case avR.Item.btn:
-                    SetVisibleAndEnabled(avR.Item.setVE);
-                    TableBasket(basket);
+                case avSV.RadioButtonList.Item.Button:
+                    lastDefault = false;
+                    setVisibleAndEnabled(avSV.RadioButtonList.Item.setVE);
+                    tableBasket(cacheBasket);
                     break;
-                case avR.Offer.btn:
-                    SetVisibleAndEnabled(avR.Offer.setVE);
-                    TableBasket(basket);
+                case avSV.RadioButtonList.Offer.Button:
+                    lastDefault = false;
+                    setVisibleAndEnabled(avSV.RadioButtonList.Offer.setVE);
+                    tableBasket(cacheBasket);
                     break;
-                case avR.Default.btn:
-                    SetVisibleAndEnabled(avR.Default.setVE);
+                case avSV.RadioButtonList.Provided.Button:
+                    lastDefault = true;
+                    setVisibleAndEnabled(avSV.RadioButtonList.Provided.setVE);
+                    rblProvidedChoice.ClearSelection();
                     break;
             }
         }
 
-        private void SetVisibleAndEnabled(List<bool> args)
+        private void setVisibleAndEnabled(List<bool> args)
         {
             panelGift.Visible = args[0];
             panelItem.Visible = args[1];
             panelOffer.Visible = args[2];
-            panelDefault.Visible = args[3];
+            panelProvided.Visible = args[3];
 
             btnBuy.Enabled = args[4];
             btnApply.Enabled = args[5];
         }
 
+        protected void rblDefaultChoice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bl bl1 = new bl();
+            tableBasket(bl1.LoadBasket(rblProvidedChoice.SelectedIndex));
+        }
+
         protected void btnBuy_Click(object sender, EventArgs e)
         {
-            if (rblCreateChoice.SelectedValue == avR.Item.btn) AddItemToBasket();
-            else AddGiftToBasket(true);
+            if (rblCreateChoice.SelectedValue == avSV.RadioButtonList.Item.Button) addItemToBasket();
+            else addGiftToBasket(true);
         }
 
         protected void btnApply_Click(object sender, EventArgs e) 
         {
-            if (rblCreateChoice.SelectedValue == avR.Offer.btn) AddOfferToBasket();
-            else AddGiftToBasket(false);
+            if (rblCreateChoice.SelectedValue == avSV.RadioButtonList.Offer.Button) addOfferToBasket();
+            else addGiftToBasket(false);
         }
 
-        protected void rblDefaultChoice_SelectedIndexChanged(object sender, EventArgs e)
+        protected void imgDelete_Click(object sender, EventArgs e)
         {
-            bl bl1 = new bl();
-            TableBasket(bl1.LoadBasket(rblDefaultChoice.SelectedIndex));
+            ImageButton btn = (ImageButton)sender;
+            string containerID = btn.ID.Remove(btn.ID.Length - 6);
+            int index;
+            indexOfItem(ref containerID, out index);
+
+            if (containerID.Length.Equals(3))
+            {
+                if (index <= cacheBasket.BuyItems.Count) cacheBasket.DeleteBuy(index, true);
+                else cacheBasket.DeleteBuy(index - cacheBasket.BuyItems.Count, false);
+            }
+            else if (containerID.Equals(5))
+            {
+                cacheBasket.DeleteApply(index, true);
+            }
+            else
+                cacheBasket.DeleteApply(null, false);
+
+            tableBasket(cacheBasket);
+        }
+
+        private void indexOfItem(ref string containerID, out int index)
+        {
+            containerID = containerID.Remove(0, 3);
+            index = 0;
+            if (containerID.StartsWith(avSV.Buy))
+            {
+                index = int.Parse(containerID.Remove(0,3)) - 1;
+                containerID = containerID.Remove(3);
+            }
+            else if (containerID.StartsWith(avSV.Apply))
+            {
+                containerID = containerID.Remove(0, 5);
+                index = int.Parse(containerID) - cacheBasket.BuyItems.Count - 1;
+            }
+        }
+
+        protected void btnDecrease_Click(object sender, EventArgs e)
+        {
+            ImageButton btn = (ImageButton)sender;
+            string containerID = btn.ID.Remove(btn.ID.Length - 8);
+            int index;
+            indexOfItem(ref containerID, out index);
+
+            if (containerID.Length.Equals(3))
+            {
+                if (index <= cacheBasket.BuyItems.Count) cacheBasket.BuyItems[index].Qty--;
+                else cacheBasket.BuyGifts[index - cacheBasket.BuyItems.Count].Qty--;
+            }
+            else if (containerID.Equals(5))
+                cacheBasket.ApplyGift[index].Qty--;
+
+            tableBasket(cacheBasket);
+        }
+
+        protected void btnIncrease_Click(object sender, EventArgs e)
+        {
+            ImageButton btn = (ImageButton)sender;
+            string containerID = btn.ID.Remove(btn.ID.Length - 8);
+            int index;
+            indexOfItem(ref containerID, out index);
+
+            if (containerID.Length.Equals(3))
+            {
+                if (index <= cacheBasket.BuyItems.Count) cacheBasket.BuyItems[index].Qty++;
+                else cacheBasket.BuyGifts[index - cacheBasket.BuyItems.Count].Qty++;
+            }
+            else if (containerID.Equals(5))
+                cacheBasket.ApplyGift[index].Qty++;
+
+            tableBasket(cacheBasket);
         }
 
         #endregion

@@ -1,0 +1,46 @@
+﻿body{
+    font-size: 20px;
+}
+
+[id$='Delete']{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 25px;
+    width: 25px;
+}
+
+[id$='crease']{
+    height: 25px;
+    width: 25px;
+}
+
+.label{
+    display: inline-block;
+    text-align: right;
+}
+
+[id*='tb']{
+    width: 150px;
+}
+
+[id='panelChoice']{
+    display: inline-block;
+    width: inherit;
+    vertical-align: top;
+}
+
+.panel{
+    display: inline-block;
+    width: 300px;
+    font: bold;
+    vertical-align: top;
+}
+#tblBasket{
+    width: 600px;
+    border: 2px solid;
+}
+#tblBasket, td{
+    border: 2px solid;
+}
+
+
