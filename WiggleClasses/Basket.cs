@@ -6,8 +6,8 @@ namespace WiggleClasses
 {
     public class Basket
     {
-        public List<Item> BuyItems { get; set; }
-        public List<Gift> BuyGifts { get; set; }
+        public List<Item> BuyItems { get; set; }  //TODO maybe make them private it will however require
+        public List<Gift> BuyGifts { get; set; }  // a lot of new methods which will decrease performance
         public List<Gift> ApplyGift { get; set; }
         public Offer Offer { get; set; }
         public decimal BasketTotal { get; set; }

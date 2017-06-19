@@ -1,0 +1,29 @@
+  I would like to give a short explanation why my solution is what it is.
+Since I had a lot of time and freedom to work on it, I got the chance to 
+improve it as I saw fit. I am aware that such productivity in a Life Project
+could be dangerous but I assumed that, since this test is to ascertain my 
+capabilities, it would be seen as a positive.
+
+ - I used the N-tier model because I find it useful in separation of concerns 
+ and addition of new functionality of which I did a lot.
+ 
+ - Application Variables is a project that stores all the variables' values
+of the solution. It is something I find incredibly useful and helpful 
+especially when a change is needed.
+
+ - My Business Layer have a rather small amount of code within it due to the 
+focus of the solution. However I chose to keep it so that I can improve my 
+comfort of using N-tier.
+
+ - The data layer is used as a pseudo database, storing the provided examples. 
+I could have added CRUD functionality for a CSV file accessible from the UI.
+The reason I didn't, is because I didn't want to work on making a CSV reader 
+and was not sure how using a third party library would be seen.
+
+ - It took me a minute to see my mistake with the public List however I kept 
+ them public for ease and I hope that it is acceptable. 
+
+ - And lastly multiple classes in one file. I understand the best practice but 
+I made the assumption, wrongly, that since the classes have so little code 
+it would be fine.
+

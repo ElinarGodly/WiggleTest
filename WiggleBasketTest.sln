@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiggleClasses", "WiggleClasses\WiggleClasses.csproj", "{A09CFF52-3F55-4C50-BD6F-4495ACB771CB}"
 EndProject
@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{C0D78A41-5135-4EFC-9EF1-EB6FEE98E72E}"
 	ProjectSection(SolutionItems) = preProject
 		03 Wiggle Shopping Basket Job Interview Task.doc = 03 Wiggle Shopping Basket Job Interview Task.doc
+		Please Read.txt = Please Read.txt
 		Version 1 Feedback.png = Version 1 Feedback.png
 		Wiggle Plans.doc = Wiggle Plans.doc
 		Wiggle Shopping Basket Job Interview Task.docx = Wiggle Shopping Basket Job Interview Task.docx

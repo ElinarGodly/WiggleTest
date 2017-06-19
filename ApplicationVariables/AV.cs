@@ -13,7 +13,7 @@ namespace ApplicationVariables
             }
         }
 
-        public struct SystemValues //TODO check variables names and methods for Capitals 
+        public struct SystemValues
         {
             public struct Paths
             {
@@ -55,8 +55,8 @@ namespace ApplicationVariables
                 
                 public struct Provided
                 {
-                    public const string Button = "provided"; //TODO think of a better name
-                    public static List<bool> setVE = new List<bool> { false, false, false, true, false, false}; //TODO remove plan document
+                    public const string Button = "provided"; 
+                    public static List<bool> setVE = new List<bool> { false, false, false, true, false, false}; //TODO maybe remove plan document, move Please Read outside of the project
                 }
             }
 
