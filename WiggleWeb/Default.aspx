@@ -16,7 +16,7 @@
                     <asp:ListItem Text="Gift" Value="gift"/>
                     <asp:ListItem Text="Item" Value="item"/>
                     <asp:ListItem Text="Offer" Value="offer"/>
-                    <asp:ListItem Text="Default" Value ="default"/>
+                    <asp:ListItem Text="Provided" Value ="provided"/>
                 </asp:RadioButtonList>
             </asp:Panel>
             <asp:Panel ID="panelGift" runat="server" Visible="false"  CssClass="panel">
@@ -69,8 +69,8 @@
                     <asp:TextBox ID="tbOfferSubset" runat="server"></asp:TextBox>
                 </div>
             </asp:Panel>
-            <asp:Panel ID="panelDefault" runat ="server" Visible="false" CssClass="panel">
-                <asp:RadioButtonList ID="rblDefaultChoice" runat="server" OnSelectedIndexChanged="rblDefaultChoice_SelectedIndexChanged" AutoPostBack="true">
+            <asp:Panel ID="panelProvided" runat ="server" Visible="false" CssClass="panel">
+                <asp:RadioButtonList ID="rblProvidedChoice" runat="server" OnSelectedIndexChanged="rblProvidedChoice_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Text ="Basket 1"/>
                     <asp:ListItem Text ="Basket 2"/>
                     <asp:ListItem Text ="Basket 3"/>

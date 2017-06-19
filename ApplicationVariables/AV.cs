@@ -15,38 +15,47 @@ namespace ApplicationVariables
 
         public struct SystemValues //TODO check variables names and methods for Capitals 
         {
+            public struct Paths
+            {
+                public static string DeleteButtonImage = @"GraphicResources\circled-X-blue-jelly.png";
+                public static string DecreaseButtonImage = @"GraphicResources\left-blue-jelly-arrowhead.png";
+                public static string IncreaseButtonImage = @"GraphicResources\right-blue-jelly-arrowhead.png";
+            }
+            public static string Buy = "Buy";
+            public static string Apply = "Apply";
+
             public struct Buttons
             {
-                public static string templ = "{0}{1}";
-                public static string delete = "Delete";
-                public static string decrease = "Left";
-                public static string increase = "Right";
-                public static string qtyLbl = "qtyLbl";
+                public static string Template = "{0}{1}";
+                public static string Delete = "Delete";
+                public static string Decrease = "Decrease";
+                public static string Increase = "Increase";
+                public static string QuantityLabel = "QtyLbl";
             }
 
             public struct RadioButtonList
             {
                 public struct Gift
                 {
-                    public const string btn = @"gift";
+                    public const string Button = "gift";
                     public static List<bool> setVE = new List<bool> { true, false, false, false, true, true}; 
                 }
 
                 public struct Item
                 {
-                    public const string btn = @"item";
+                    public const string Button = "item";
                     public static List<bool> setVE = new List<bool> { false, true, false, false, true, false};
                 }
                 
                 public struct Offer
                 {
-                    public const string btn = @"offer";
+                    public const string Button = "offer";
                     public static List<bool> setVE = new List<bool> { false, false, true, false, false, true};
                 }
                 
-                public struct Default
+                public struct Provided
                 {
-                    public const string btn = @"default"; //TODO think of a better name
+                    public const string Button = "provided"; //TODO think of a better name
                     public static List<bool> setVE = new List<bool> { false, false, false, true, false, false}; //TODO remove plan document
                 }
             }
@@ -55,22 +64,22 @@ namespace ApplicationVariables
             {               
                 public struct Templates
                 {
-                    public static string itemNoSub = @"{0}";
-                    public static string itemWithSub = @"{0} ({1} Category of Product)";
-                    public static string giftItem = @"£{0} Gift Voucher";
-                    public static string giftVoucher = @"£{0} Gift Voucher {1} applied.";
-                    public static string offerNoSub = @"£{0} off baskets over £{1} Offer Voucher {2} applied.";
-                    public static string offerWithSub = @"£{0} off {1} in baskets over £{2} Offer Voucher {3} applied.";
-                    public static string totalSum = @"Total: £{0}";
+                    public static string ItemNoSub = "{0}";
+                    public static string ItemWithSub = "{0} ({1} Category of Product)";
+                    public static string GiftItem = "£{0} Gift Voucher";
+                    public static string GiftVoucher = "£{0} Gift Voucher {1} applied.";
+                    public static string OfferNoSub = "£{0} off baskets over £{1} Offer Voucher {2} applied.";
+                    public static string OfferWithSub = "£{0} off {1} in baskets over £{2} Offer Voucher {3} applied.";
+                    public static string TotalSum = "Total: £{0}";
                 }
 
                 public struct RowLabels
                 {
-                    public static string rowBuy = "rowBuy{0}";
-                    public static string rowApply = "rowApply{0}";
-                    public static string rowOffer = "rowOffer";
-                    public static string rowMsg = "rowMsg";
-                    public static string rowTotal = "rowTotal";
+                    public static string RowBuy = "rowBuy{0}";
+                    public static string RowApply = "rowApply{0}";
+                    public static string RowOffer = "rowOffer";
+                    public static string RowMsg = "rowMsg";
+                    public static string RowTotal = "rowTotal";
                 }
 
 
