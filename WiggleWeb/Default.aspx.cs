@@ -62,7 +62,7 @@ namespace WiggleBasketWebPage
             foreach (var gift in basket.BuyGifts)
                 addRowBuyGift(gift);
 
-            foreach (var gift in basket.ApplyGift)
+            foreach (var gift in basket.ApplyGifts)
                 addRowApplyGift(gift);
 
             if (basket.Offer.Code != null) addRowApplyOffer(basket.Offer);
@@ -126,6 +126,20 @@ namespace WiggleBasketWebPage
             row.Cells.Add(cell);
         }
 
+
+        private void addCellQty(TableRow row)
+        {
+            TableCell cell = new TableCell();
+            ImageButton btn = new ImageButton();
+            Label lbl = new Label();
+            btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Delete);
+            btn.ImageUrl = avSV.Paths.DeleteButtonImage;
+            btn.Click += imgDelete_Click;
+            cell.Controls.Add(btn);
+
+            row.Cells.Add(cell);
+        }
+
         private void addRowBuyItem(cl.Item item)
         {
             TableRow row = new TableRow();
@@ -162,12 +176,13 @@ namespace WiggleBasketWebPage
         {
             TableRow row = new TableRow();
             row.ID = avSV.TableValues.RowLabels.RowOffer;
+            addCellQty(row);
             addCell((offer.Subset == String.Empty) ?
                     String.Format(avSV.TableValues.Templates.OfferNoSub, offer.Value, offer.Threshold, offer.Code) :
-                    String.Format(avSV.TableValues.Templates.OfferWithSub, offer.Value, offer.Subset, offer.Threshold, offer.Code), 3, row);
+                    String.Format(avSV.TableValues.Templates.OfferWithSub, offer.Value, offer.Subset, offer.Threshold, offer.Code), 2, row);
             tblBasket.Rows.Add(row);
         }
-
+        
         private void addErrorRow(string voucherMessage)
         {
             TableRow row = new TableRow();
@@ -227,7 +242,7 @@ namespace WiggleBasketWebPage
             btnApply.Enabled = args[5];
         }
 
-        protected void rblDefaultChoice_SelectedIndexChanged(object sender, EventArgs e)
+        protected void rblProvidedChoice_SelectedIndexChanged(object sender, EventArgs e)
         {
             bl bl1 = new bl();
             tableBasket(bl1.LoadBasket(rblProvidedChoice.SelectedIndex));
@@ -254,7 +269,7 @@ namespace WiggleBasketWebPage
 
             if (containerID.Length.Equals(3))
             {
-                if (index <= cacheBasket.BuyItems.Count) cacheBasket.DeleteBuy(index, true);
+                if (index < cacheBasket.BuyItems.Count) cacheBasket.DeleteBuy(index, true);
                 else cacheBasket.DeleteBuy(index - cacheBasket.BuyItems.Count, false);
             }
             else if (containerID.Equals(5))
@@ -292,11 +307,11 @@ namespace WiggleBasketWebPage
 
             if (containerID.Length.Equals(3))
             {
-                if (index <= cacheBasket.BuyItems.Count) cacheBasket.BuyItems[index].Qty--;
+                if (index < cacheBasket.BuyItems.Count) cacheBasket.BuyItems[index].Qty--;
                 else cacheBasket.BuyGifts[index - cacheBasket.BuyItems.Count].Qty--;
             }
             else if (containerID.Equals(5))
-                cacheBasket.ApplyGift[index].Qty--;
+                cacheBasket.ApplyGifts[index].Qty--;
 
             tableBasket(cacheBasket);
         }
@@ -310,11 +325,11 @@ namespace WiggleBasketWebPage
 
             if (containerID.Length.Equals(3))
             {
-                if (index <= cacheBasket.BuyItems.Count) cacheBasket.BuyItems[index].Qty++;
+                if (index < cacheBasket.BuyItems.Count) cacheBasket.BuyItems[index].Qty++;
                 else cacheBasket.BuyGifts[index - cacheBasket.BuyItems.Count].Qty++;
             }
             else if (containerID.Equals(5))
-                cacheBasket.ApplyGift[index].Qty++;
+                cacheBasket.ApplyGifts[index].Qty++;
 
             tableBasket(cacheBasket);
         }

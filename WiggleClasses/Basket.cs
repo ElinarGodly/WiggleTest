@@ -8,7 +8,7 @@ namespace WiggleClasses
     {
         public List<Item> BuyItems { get; set; }  //TODO maybe make them private it will however require
         public List<Gift> BuyGifts { get; set; }  // a lot of new methods which will decrease performance
-        public List<Gift> ApplyGift { get; set; }
+        public List<Gift> ApplyGifts { get; set; }
         public Offer Offer { get; set; }
         public decimal BasketTotal { get; set; }
         public string VoucherMessage { get; set; }
@@ -17,10 +17,31 @@ namespace WiggleClasses
         {
             this.BuyItems = new List<Item>();
             this.BuyGifts = new List<Gift>();
-            this.ApplyGift = new List<Gift>();
+            this.ApplyGifts = new List<Gift>();
             this.Offer = new Offer();
             this.BasketTotal = 0m;
             this.VoucherMessage = string.Empty;
+        }
+
+        public void ChangeItemsQuantity(int index, int qty)
+        {
+            if ((BuyGifts[index].Qty + qty) > 0) BuyGifts[index].Qty = BuyGifts[index].Qty + qty;
+            else BuyGifts[index].Qty = 0;
+        }
+
+        public void ChangeGiftQuantity(int index, int qty, bool buy)
+        {
+            if(buy)
+                if ((BuyGifts[index].Qty + qty) > 0) BuyGifts[index].Qty = BuyGifts[index].Qty + qty;
+                else BuyGifts[index].Qty = 0;
+            else
+                if ((ApplyGifts[index].Qty + qty) > 0) ApplyGifts[index].Qty = ApplyGifts[index].Qty + qty;
+                else ApplyGifts[index].Qty = 0;
+        }
+
+        public int TotalCount<T>(List<T> list)
+        {
+            return list.Count;
         }
 
         public void AddItemToBuy(Item inputItem)
@@ -43,7 +64,7 @@ namespace WiggleClasses
             if (toBuy == true)
                 addGiftInBasket(inputGift, this.BuyGifts);
             else
-                addGiftInBasket(inputGift, this.ApplyGift);
+                addGiftInBasket(inputGift, this.ApplyGifts);
         }
 
         private void addGiftInBasket(Gift inputGift, List<Gift> whereToAdd)
@@ -78,7 +99,7 @@ namespace WiggleClasses
         public void DeleteApply(int? index, bool gift)
         {
             if (gift)
-                this.ApplyGift.RemoveAt((int)index);
+                this.ApplyGifts.RemoveAt((int)index);
             else this.Offer = new Offer();
         }
 
@@ -111,7 +132,7 @@ namespace WiggleClasses
                 checkOffer(offerSubset, itemIndex);
 
             //applies the gift vouchers to the item values
-            foreach (var gift in this.ApplyGift)
+            foreach (var gift in this.ApplyGifts)
             {
                 this.BasketTotal -= gift.Value * gift.Qty;
                 if (this.BasketTotal < 0)
