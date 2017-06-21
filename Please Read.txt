@@ -20,8 +20,8 @@ I could have added CRUD functionality for a CSV file accessible from the UI.
 The reason I didn't, is because I didn't want to work on making a CSV reader 
 and was not sure how using a third party library would be seen.
 
- - It took me a minute to see my mistake with the public List however I kept 
- them public for ease and I hope that it is acceptable. 
+ - It took me a minute to see my mistake with the public List and after a bit
+ of research I belive I have corrected it. 
 
  - And lastly multiple classes in one file. I understand the best practice but 
 I made the assumption, wrongly, that since the classes have so little code 

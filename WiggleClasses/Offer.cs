@@ -4,20 +4,20 @@ namespace WiggleClasses
 {
     public class Offer
     {
-        public decimal Value { get; set; }
         public string Code { get; set; }
-        public decimal Threshold { get; set; }
         public string Subset { get; set; }
+        public decimal Threshold { get; set; }
+        public decimal Value { get; set; }
 
         public Offer() { }
 
-        public Offer(decimal value, string code, decimal threshold, string subset)
+        public Offer(string code, string subset, decimal threshold, decimal value)
         {
-            this.Value = value;
-            if (code == string.Empty) this.Code = av.Offer;
-            else this.Code = code;
-            this.Threshold = threshold;
-            this.Subset = subset;
+            if (code == string.Empty) Code = av.Offer;
+            else Code = code;
+            Subset = subset;
+            Threshold = threshold;
+            Value = value;
         }
     }
 }

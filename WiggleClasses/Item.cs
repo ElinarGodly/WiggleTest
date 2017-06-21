@@ -2,17 +2,18 @@
 {
     public class Item
     {
-        public int Qty { get; set; }
+        
         public string Name { get; set; }
         public string Subset { get; set; }
         public decimal Value { get; set; }
+        public int Qty { get; set; } //TODO check about making them private 
 
-        public Item(int qty, string name, string subset, decimal value)
+        public Item(string name, string subset, decimal value, int qty)
         {
-            this.Qty = qty;
-            this.Name = name;
-            this.Subset = subset;
-            this.Value = value;
+            Name = name;
+            Subset = subset;
+            Value = value;
+            Qty = qty;
         }
     }
 }

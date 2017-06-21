@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using cl = WiggleClasses;
 using dl = WiggleData.DataLayer;
 
@@ -12,26 +13,42 @@ namespace WiggleBusinessLogic
             return dl1.GetBasket(index);
         }
 
-        //public void AddItemToBasket(ref cl.Basket basket, List<string> args)
-        //{
-        //    cl.Item item = new cl.Item(int.Parse(tbItemQty.Text), tbItemName.Text, tbItemSubset.Text, decimal.Parse(tbItemValue.Text));
-        //    cacheBasket.AddItemToBuy(item);
-        //    TableBasket(cacheBasket);
-        //}
+        public void AddItemToBasket(ref cl.Basket basket, string name, string subset, string value, string qty)
+        {
+            cl.Item item = new cl.Item(name, subset, decimal.Parse(value), int.Parse(qty));
+            basket.AddItemToBuy(item);
+        }
 
-        //public void AddGiftToBasket(ref cl.Basket basket, List<string> args, bool buy)
-        //{
-        //    cl.Gift gift = new cl.Gift(decimal.Parse(tbGiftValue.Text), tbGiftCode.Text, int.Parse(tbGiftQty.Text));
-        //    cacheBasket.AddGift(gift, buy);
-        //    TableBasket(cacheBasket);
-        //}
+        public void AddGiftToBasket(ref cl.Basket basket, bool buy,  string code, string value, string qty)
+        {
+            cl.Gift gift = new cl.Gift(code, decimal.Parse(value), int.Parse(qty));
+            basket.AddGift(gift, buy);
+        }
 
-        //public void AddOfferToBasket(ref cl.Basket basket, List<string> args)
-        //{
-        //    cl.Offer offer = new cl.Offer(decimal.Parse(tbOfferValue.Text),
-        //                                tbOfferCode.Text, decimal.Parse(tbOfferThreshold.Text), tbOfferSubset.Text);
-        //    cacheBasket.ApplyOffer(offer);
-        //    TableBasket(cacheBasket);
-        //}
+        public void AddOfferToBasket(ref cl.Basket basket, string code, string subset, string threshold, string value)
+        {
+            cl.Offer offer = new cl.Offer(code, subset, decimal.Parse(threshold), decimal.Parse(value));
+            basket.ApplyOffer(offer);
+        }
+
+        public void DeleteBought(ref cl.Basket basket, int index, bool item)
+        {
+            basket.DeleteBuy(index, item);
+        }
+
+        public void DeleteApplied(ref cl.Basket basket, int index)
+        {
+            basket.DeleteApply(index);
+        }
+
+        public void ChangeItemQuantity(ref cl.Basket basket, int index, int qty)
+        {
+            basket.ChangeItemQuantity(index, qty);
+        }
+
+        public void ChangeGiftQuantity(ref cl.Basket basket, int index, int qty, bool buy)
+        {
+            basket.ChangeGiftQuantity(index, qty, buy);
+        }
     }
 }

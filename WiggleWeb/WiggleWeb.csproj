@@ -69,6 +69,7 @@
     <Content Include="GraphicResources\circled-X-blue-jelly.png" />
     <Content Include="GraphicResources\default.css" />
     <Content Include="GraphicResources\left-blue-jelly-arrowhead.png" />
+    <Content Include="GraphicResources\red-delete.png" />
     <Content Include="GraphicResources\right-blue-jelly-arrowhead.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">

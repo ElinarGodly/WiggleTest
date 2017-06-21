@@ -17,12 +17,10 @@ namespace ApplicationVariables
         {
             public struct Paths
             {
-                public static string DeleteButtonImage = @"GraphicResources\circled-X-blue-jelly.png";
+                public static string DeleteButtonImage = @"GraphicResources\red-delete.png";
                 public static string DecreaseButtonImage = @"GraphicResources\left-blue-jelly-arrowhead.png";
                 public static string IncreaseButtonImage = @"GraphicResources\right-blue-jelly-arrowhead.png";
             }
-            public static string Buy = "Buy";
-            public static string Apply = "Apply";
 
             public struct Buttons
             {
@@ -80,6 +78,9 @@ namespace ApplicationVariables
                     public static string RowOffer = "rowOffer";
                     public static string RowMsg = "rowMsg";
                     public static string RowTotal = "rowTotal";
+
+                    public static string Buy = "Buy";
+                    public static string Apply = "Apply";
                 }
 
 
@@ -88,9 +89,9 @@ namespace ApplicationVariables
             
             public struct ErrorMessages
             {
-                public static string SpendThresholdTemplate = "You have not reached the spend threshold for voucher {0}. Spend another £{1} to receive £{2} discount from your basket total.";
+                public static string SpendThresholdTemplate = "You have not reached the spend threshold for voucher {0}. Spend another {1} to receive £{2} discount from your basket total.";
                 public static string SubsetTemplate = "There are no products in your basket applicable to Voucher {0}.";
-                public static string GiftFailApply = "There are no products in your basket to use your gift voucher with.";
+                public static string GiftFailApply = "You have £{0} left to spend with your gift vouchers.";
             }
         }
 

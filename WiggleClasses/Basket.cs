@@ -6,48 +6,74 @@ namespace WiggleClasses
 {
     public class Basket
     {
-        public List<Item> BuyItems { get; set; }  //TODO maybe make them private it will however require
-        public List<Gift> BuyGifts { get; set; }  // a lot of new methods which will decrease performance
-        public List<Gift> ApplyGifts { get; set; }
-        public Offer Offer { get; set; }
-        public decimal BasketTotal { get; set; }
-        public string VoucherMessage { get; set; }
+        private List<Item> buyItems;  //TODO maybe make them private it will however require
+        private List<Gift> buyGifts; // a lot of new methods which will decrease performance
+        private List<Gift> applyGifts;
+        private Offer offer; //TODO check what these three need to remain private
+        private decimal basketTotal;
+        private string voucherMessage;
 
         public Basket()
         {
-            this.BuyItems = new List<Item>();
-            this.BuyGifts = new List<Gift>();
-            this.ApplyGifts = new List<Gift>();
-            this.Offer = new Offer();
-            this.BasketTotal = 0m;
-            this.VoucherMessage = string.Empty;
+            buyItems = new List<Item>();
+            buyGifts = new List<Gift>();
+            applyGifts = new List<Gift>();
+            offer = new Offer();
+            basketTotal = 0m;
+            voucherMessage = string.Empty;
+        }
+        #region Getters
+        public List<Item> BuyItems
+        {
+            get { return buyItems; }
         }
 
-        public void ChangeItemsQuantity(int index, int qty)
+        public List<Gift> BuyGifts
         {
-            if ((BuyGifts[index].Qty + qty) > 0) BuyGifts[index].Qty = BuyGifts[index].Qty + qty;
-            else BuyGifts[index].Qty = 0;
+            get { return buyGifts; }
+        }
+
+        public List<Gift> ApplyGifts
+        {
+            get { return applyGifts; }
+        }
+
+        public Offer Offer
+        {
+            get { return offer; }
+        }
+
+        public decimal BasketTotal
+        {
+            get { return basketTotal; }
+        }
+
+        public string VoucherMessage
+        {
+            get { return voucherMessage; }
+        }
+        #endregion
+        
+        public void ChangeItemQuantity(int index, int qty)
+        {
+            if ((buyItems[index].Qty + qty) > 0) buyItems[index].Qty = buyItems[index].Qty + qty;
+            else buyItems[index].Qty = 0;
         }
 
         public void ChangeGiftQuantity(int index, int qty, bool buy)
         {
-            if(buy)
-                if ((BuyGifts[index].Qty + qty) > 0) BuyGifts[index].Qty = BuyGifts[index].Qty + qty;
-                else BuyGifts[index].Qty = 0;
+            if (buy)
+                if ((buyGifts[index].Qty + qty) > 0) buyGifts[index].Qty = buyGifts[index].Qty + qty;
+                else buyGifts[index].Qty = 0;
             else
-                if ((ApplyGifts[index].Qty + qty) > 0) ApplyGifts[index].Qty = ApplyGifts[index].Qty + qty;
-                else ApplyGifts[index].Qty = 0;
+                if ((applyGifts[index].Qty + qty) > 0) applyGifts[index].Qty = applyGifts[index].Qty + qty;
+            else applyGifts[index].Qty = 0;
         }
-
-        public int TotalCount<T>(List<T> list)
-        {
-            return list.Count;
-        }
-
+        
         public void AddItemToBuy(Item inputItem)
         {
             bool isNewItem = true;
-            foreach (var item in BuyItems)
+            foreach (var item in buyItems)
                 if (item.Name == inputItem.Name)
                 {
                     item.Qty += inputItem.Qty;
@@ -56,15 +82,15 @@ namespace WiggleClasses
                 }
 
             if (isNewItem)
-                this.BuyItems.Add(inputItem);
+                buyItems.Add(inputItem);
         }
 
         public void AddGift(Gift inputGift, bool toBuy)
         {
             if (toBuy == true)
-                addGiftInBasket(inputGift, this.BuyGifts);
+                addGiftInBasket(inputGift, this.buyGifts);
             else
-                addGiftInBasket(inputGift, this.ApplyGifts);
+                addGiftInBasket(inputGift, this.applyGifts);
         }
 
         private void addGiftInBasket(Gift inputGift, List<Gift> whereToAdd)
@@ -84,23 +110,23 @@ namespace WiggleClasses
 
         public void ApplyOffer(Offer voucher)
         {
-            if (this.Offer.Code == null)
-                this.Offer = voucher;
+            if (offer.Code == null)
+                offer = voucher;
         }
 
         public void DeleteBuy(int index, bool item)
         {
             if (item)
-                this.BuyItems.RemoveAt(index);
+                buyItems.RemoveAt(index);
             else
-                this.BuyGifts.RemoveAt(index);
+                buyGifts.RemoveAt(index);
         }
 
-        public void DeleteApply(int? index, bool gift)
+        public void DeleteApply(int? index)
         {
-            if (gift)
-                this.ApplyGifts.RemoveAt((int)index);
-            else this.Offer = new Offer();
+            if (index != null)
+                applyGifts.RemoveAt((int)index);
+            else offer = new Offer();
         }
 
         public void CalcTotal()
@@ -108,67 +134,61 @@ namespace WiggleClasses
             //sum item values*qty and check if any is applicable for offer subtype discount and if such offer is added
             int itemIndex = 0;
             bool offerSubset = false;
-            this.BasketTotal = 0.00m;
-            this.VoucherMessage = String.Empty;
-            foreach (var item in this.BuyItems)
+            basketTotal = 0.00m;
+            voucherMessage = String.Empty;
+            foreach (var item in buyItems)
             {
-                if (item.Subset == Offer.Subset)
+                if (item.Subset == offer.Subset)
                 {
                     if (offerSubset == true)
                     {
-                        itemIndex = (item.Value > this.BuyItems[itemIndex].Value) ? BuyItems.IndexOf(item) : itemIndex;
+                        itemIndex = (item.Value > buyItems[itemIndex].Value) ? buyItems.IndexOf(item) : itemIndex;
                     }
                     else
                     {
-                        itemIndex = BuyItems.IndexOf(item);
+                        itemIndex = buyItems.IndexOf(item);
                         offerSubset = true;
                     }
                 }
-                this.BasketTotal += item.Value * item.Qty;
+                basketTotal += item.Value * item.Qty;
             }
 
             //given offerSubset (true/false) and itemIndex int this checks, applies and messages for the offer voucher cases
-            if (this.Offer.Code != null)
+            if (offer.Code != null)
                 checkOffer(offerSubset, itemIndex);
 
             //applies the gift vouchers to the item values
-            foreach (var gift in this.ApplyGifts)
+            foreach (var gift in applyGifts)
             {
-                this.BasketTotal -= gift.Value * gift.Qty;
-                if (this.BasketTotal < 0)
+                basketTotal -= gift.Value * gift.Qty;
+                if (basketTotal < 0)
                 {
-                    this.BasketTotal = 0.00m;
-                    this.VoucherMessage = av.GiftFailApply;
+                    voucherMessage = String.Format(av.GiftFailApply,basketTotal);
+                    basketTotal = 0.00m;
                 }
             }
-
             //adds the cost for the gift vouchers to be purchased
-            foreach (var gift in this.BuyGifts)
-                this.BasketTotal += gift.Value * gift.Qty;
-
+            foreach (var gift in buyGifts)
+                basketTotal += gift.Value * gift.Qty;
         }
 
         private void checkOffer(bool offerSubset, int itemIndex)
         {
-            if (this.Offer.Threshold < this.BasketTotal)
-            {
-                if (this.Offer.Subset == String.Empty)
-                {
-                    this.BasketTotal -= Offer.Value;
-                }
+            if (offer.Threshold < basketTotal)
+                if (offer.Subset == String.Empty)
+                    basketTotal -= offer.Value;
                 else if (offerSubset)
                 {
-                    decimal change = (this.BuyItems[itemIndex].Value < Offer.Value) ?
-                                        this.BuyItems[itemIndex].Value : Offer.Value;
-                    this.BasketTotal -= change;
+                    decimal change = (buyItems[itemIndex].Value < offer.Value) ?
+                                        buyItems[itemIndex].Value : offer.Value;
+                    basketTotal -= change;
                 }
                 else
-                    this.VoucherMessage = String.Format(av.SubsetTemplate, Offer.Code);
-            }
+                    voucherMessage = String.Format(av.SubsetTemplate, offer.Code);
             else
             {
-                decimal needed = (Offer.Threshold - this.BasketTotal) + 0.01m; // This 0.01 is used to display proper error message.
-                this.VoucherMessage = String.Format(av.SpendThresholdTemplate, Offer.Code, needed, Offer.Value);
+                decimal needed = (offer.Threshold - basketTotal) + 0.01m; // This 0.01 is used to display proper error message.
+                voucherMessage = String.Format(av.SpendThresholdTemplate, offer.Code, needed, offer.Value);
             }
         }
     }

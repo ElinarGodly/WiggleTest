@@ -220,22 +220,22 @@ namespace WiggleBasketWebPage {
         protected global::System.Web.UI.WebControls.TextBox tbOfferCode;
         
         /// <summary>
-        /// lblOfferValue control.
+        /// lblOfferSubset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOfferValue;
+        protected global::System.Web.UI.WebControls.Label lblOfferSubset;
         
         /// <summary>
-        /// tbOfferValue control.
+        /// tbOfferSubset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbOfferValue;
+        protected global::System.Web.UI.WebControls.TextBox tbOfferSubset;
         
         /// <summary>
         /// lblOfferThreshold control.
@@ -256,22 +256,22 @@ namespace WiggleBasketWebPage {
         protected global::System.Web.UI.WebControls.TextBox tbOfferThreshold;
         
         /// <summary>
-        /// lblOfferSubset control.
+        /// lblOfferValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOfferSubset;
+        protected global::System.Web.UI.WebControls.Label lblOfferValue;
         
         /// <summary>
-        /// tbOfferSubset control.
+        /// tbOfferValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbOfferSubset;
+        protected global::System.Web.UI.WebControls.TextBox tbOfferValue;
         
         /// <summary>
         /// panelProvided control.

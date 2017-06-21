@@ -13,13 +13,13 @@
             <asp:Panel ID="panelChoice" runat="server">
                 <asp:Label ID="lblCreateChoice" runat="server">Pick An Option</asp:Label>
                 <asp:RadioButtonList ID="rblCreateChoice" runat="server" TextAlign="Right" OnSelectedIndexChanged="rblCreateChoice_SelectedIndexChanged" AutoPostBack="true">
-                    <asp:ListItem Text="Gift" Value="gift"/>
-                    <asp:ListItem Text="Item" Value="item"/>
-                    <asp:ListItem Text="Offer" Value="offer"/>
-                    <asp:ListItem Text="Provided" Value ="provided"/>
+                    <asp:ListItem Text="Gift" Value="gift" />
+                    <asp:ListItem Text="Item" Value="item" />
+                    <asp:ListItem Text="Offer" Value="offer" />
+                    <asp:ListItem Text="Provided" Value="provided" />
                 </asp:RadioButtonList>
             </asp:Panel>
-            <asp:Panel ID="panelGift" runat="server" Visible="false"  CssClass="panel">
+            <asp:Panel ID="panelGift" runat="server" Visible="false" CssClass="panel">
                 <div>
                     <asp:Label ID="lblGiftCode" runat="server" CssClass="label">Gift Code</asp:Label>
                     <asp:TextBox ID="tbGiftCode" runat="server"></asp:TextBox>
@@ -51,37 +51,37 @@
                     <asp:TextBox ID="tbItemQty" runat="server"></asp:TextBox>
                 </div>
             </asp:Panel>
-            <asp:Panel ID="panelOffer" runat="server" Visible="false"  CssClass="panel">
+            <asp:Panel ID="panelOffer" runat="server" Visible="false" CssClass="panel">
                 <div>
                     <asp:Label ID="lblOfferCode" runat="server" CssClass="label">Offer Code</asp:Label>
                     <asp:TextBox ID="tbOfferCode" runat="server"></asp:TextBox>
                 </div>
                 <div>
-                    <asp:Label ID="lblOfferValue" runat="server" CssClass="label">Offer Value</asp:Label>
-                    <asp:TextBox ID="tbOfferValue" runat="server"></asp:TextBox>
+                    <asp:Label ID="lblOfferSubset" runat="server" CssClass="label">Offer Subset</asp:Label>
+                    <asp:TextBox ID="tbOfferSubset" runat="server"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblOfferThreshold" runat="server" CssClass="label">Offer Threshold</asp:Label>
                     <asp:TextBox ID="tbOfferThreshold" runat="server"></asp:TextBox>
                 </div>
                 <div>
-                    <asp:Label ID="lblOfferSubset" runat="server" CssClass="label">Offer Subset</asp:Label>
-                    <asp:TextBox ID="tbOfferSubset" runat="server"></asp:TextBox>
+                    <asp:Label ID="lblOfferValue" runat="server" CssClass="label">Offer Value</asp:Label>
+                    <asp:TextBox ID="tbOfferValue" runat="server"></asp:TextBox>
                 </div>
             </asp:Panel>
-            <asp:Panel ID="panelProvided" runat ="server" Visible="false" CssClass="panel">
+            <asp:Panel ID="panelProvided" runat="server" Visible="false" CssClass="panel">
                 <asp:RadioButtonList ID="rblProvidedChoice" runat="server" OnSelectedIndexChanged="rblProvidedChoice_SelectedIndexChanged" AutoPostBack="true">
-                    <asp:ListItem Text ="Basket 1"/>
-                    <asp:ListItem Text ="Basket 2"/>
-                    <asp:ListItem Text ="Basket 3"/>
-                    <asp:ListItem Text ="Basket 4"/>
-                    <asp:ListItem Text ="Basket 5"/>
+                    <asp:ListItem Text="Basket 1" />
+                    <asp:ListItem Text="Basket 2" />
+                    <asp:ListItem Text="Basket 3" />
+                    <asp:ListItem Text="Basket 4" />
+                    <asp:ListItem Text="Basket 5" />
                 </asp:RadioButtonList>
             </asp:Panel>
         </div>
         <div>
-            <asp:Button ID="btnBuy" runat ="server" Text="Buy" Enabled ="false" OnClick ="btnBuy_Click" />
-            <asp:Button ID="btnApply" runat ="server" Text ="Apply" Enabled="false" OnClick ="btnApply_Click" />
+            <asp:Button ID="btnBuy" runat="server" Text="Buy" Enabled="false" OnClick="btnBuy_Click" />
+            <asp:Button ID="btnApply" runat="server" Text="Apply" Enabled="false" OnClick="btnApply_Click" />
         </div>
         <div>
             <asp:Table ID="tblBasket" runat="server" Visible="false"></asp:Table>
