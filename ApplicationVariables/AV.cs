@@ -15,12 +15,7 @@ namespace ApplicationVariables
 
         public struct SystemValues
         {
-            public struct Paths
-            {
-                public static string DeleteButtonImage = @"GraphicResources\red-delete.png";
-                public static string DecreaseButtonImage = @"GraphicResources\left-blue-jelly-arrowhead.png";
-                public static string IncreaseButtonImage = @"GraphicResources\right-blue-jelly-arrowhead.png";
-            }
+
 
             public struct Buttons
             {
@@ -29,6 +24,14 @@ namespace ApplicationVariables
                 public static string Decrease = "Decrease";
                 public static string Increase = "Increase";
                 public static string QuantityLabel = "QtyLbl";
+                public static string CssClass = "imgButtons";
+
+                public struct Paths
+                {
+                    public static string DeleteButtonImage = @"GraphicResources\red-delete.png";
+                    public static string DecreaseButtonImage = @"GraphicResources\left-blue-jelly-arrowhead.png";
+                    public static string IncreaseButtonImage = @"GraphicResources\right-blue-jelly-arrowhead.png";
+                }
             }
 
             public struct RadioButtonList
@@ -36,30 +39,30 @@ namespace ApplicationVariables
                 public struct Gift
                 {
                     public const string Button = "gift";
-                    public static List<bool> setVE = new List<bool> { true, false, false, false, true, true}; 
+                    public static List<bool> setVE = new List<bool> { true, false, false, false, true, true };
                 }
 
                 public struct Item
                 {
                     public const string Button = "item";
-                    public static List<bool> setVE = new List<bool> { false, true, false, false, true, false};
+                    public static List<bool> setVE = new List<bool> { false, true, false, false, true, false };
                 }
-                
+
                 public struct Offer
                 {
                     public const string Button = "offer";
-                    public static List<bool> setVE = new List<bool> { false, false, true, false, false, true};
+                    public static List<bool> setVE = new List<bool> { false, false, true, false, false, true };
                 }
-                
+
                 public struct Provided
                 {
-                    public const string Button = "provided"; 
-                    public static List<bool> setVE = new List<bool> { false, false, false, true, false, false}; //TODO maybe remove plan document, move Please Read outside of the project
+                    public const string Button = "provided";
+                    public static List<bool> setVE = new List<bool> { false, false, false, true, false, false }; //TODO maybe remove plan document, move Please Read outside of the project
                 }
             }
 
             public struct TableValues
-            {               
+            {
                 public struct Templates
                 {
                     public static string ItemNoSub = "{0}";
@@ -83,10 +86,11 @@ namespace ApplicationVariables
                     public static string Apply = "Apply";
                 }
 
+                public static string cellCssClass = "cellQty";
 
                 public static List<string> HeaderCells = new List<string> { "Qty Control", "Information", "Value" }; //TODO check names
             }
-            
+
             public struct ErrorMessages
             {
                 public static string SpendThresholdTemplate = "You have not reached the spend threshold for voucher {0}. Spend another {1} to receive £{2} discount from your basket total.";

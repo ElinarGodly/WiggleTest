@@ -93,16 +93,19 @@ namespace WiggleBasketWebPage
         private void addCellQty(int qty, TableRow row)
         {
             TableCell cell = new TableCell();
+            cell.CssClass = avSV.TableValues.cellCssClass;
             ImageButton btn = new ImageButton();
             Label lbl = new Label();
             btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Delete);
-            btn.ImageUrl = avSV.Paths.DeleteButtonImage;
+            btn.CssClass = avSV.Buttons.CssClass;
+            btn.ImageUrl = avSV.Buttons.Paths.DeleteButtonImage;
             btn.Click += imgDelete_Click;
             cell.Controls.Add(btn);
 
             btn = new ImageButton();
             btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Decrease);
-            btn.ImageUrl = avSV.Paths.DecreaseButtonImage;
+            btn.CssClass = avSV.Buttons.CssClass;
+            btn.ImageUrl = avSV.Buttons.Paths.DecreaseButtonImage;
             btn.Click += btnDecrease_Click;
             cell.Controls.Add(btn);
 
@@ -112,7 +115,8 @@ namespace WiggleBasketWebPage
 
             btn = new ImageButton();
             btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Increase);
-            btn.ImageUrl = avSV.Paths.IncreaseButtonImage;
+            btn.CssClass = avSV.Buttons.CssClass;
+            btn.ImageUrl = avSV.Buttons.Paths.IncreaseButtonImage;
             btn.Click += btnIncrease_Click;
             cell.Controls.Add(btn);
 
@@ -122,9 +126,11 @@ namespace WiggleBasketWebPage
         private void addCellQty(TableRow row)
         {
             TableCell cell = new TableCell();
+            cell.CssClass = avSV.TableValues.cellCssClass;
             ImageButton btn = new ImageButton();
             btn.ID = String.Format(avSV.Buttons.Template, row.ID, avSV.Buttons.Delete);
-            btn.ImageUrl = avSV.Paths.DeleteButtonImage;
+            btn.CssClass = avSV.Buttons.CssClass;
+            btn.ImageUrl = avSV.Buttons.Paths.DeleteButtonImage;
             btn.Click += imgDelete_Click;
             cell.Controls.Add(btn);
 

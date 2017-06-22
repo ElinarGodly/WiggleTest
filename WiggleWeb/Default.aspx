@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Panel ID="panelChoice" runat="server">
+            <asp:Panel ID="panelChoice" runat="server" CssClass="panel">
                 <asp:Label ID="lblCreateChoice" runat="server">Pick An Option</asp:Label>
                 <asp:RadioButtonList ID="rblCreateChoice" runat="server" TextAlign="Right" OnSelectedIndexChanged="rblCreateChoice_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Text="Gift" Value="gift" />
@@ -22,51 +22,51 @@
             <asp:Panel ID="panelGift" runat="server" Visible="false" CssClass="panel">
                 <div>
                     <asp:Label ID="lblGiftCode" runat="server" CssClass="label">Gift Code</asp:Label>
-                    <asp:TextBox ID="tbGiftCode" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbGiftCode" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblGiftValue" runat="server" CssClass="label">Gift Value</asp:Label>
-                    <asp:TextBox ID="tbGiftValue" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbGiftValue" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblGiftQty" runat="server" CssClass="label">Gift Qty</asp:Label>
-                    <asp:TextBox ID="tbGiftQty" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbGiftQty" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
             </asp:Panel>
             <asp:Panel ID="panelItem" runat="server" Visible="false" CssClass="panel">
                 <div>
                     <asp:Label ID="lblItemName" runat="server" CssClass="label">Item Name</asp:Label>
-                    <asp:TextBox ID="tbItemName" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbItemName" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblItemSubset" runat="server" CssClass="label">Item Subset</asp:Label>
-                    <asp:TextBox ID="tbItemSubset" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbItemSubset" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblItemValue" runat="server" CssClass="label">Item Value</asp:Label>
-                    <asp:TextBox ID="tbItemValue" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbItemValue" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblItemQty" runat="server" CssClass="label">Item Qty</asp:Label>
-                    <asp:TextBox ID="tbItemQty" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbItemQty" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
             </asp:Panel>
             <asp:Panel ID="panelOffer" runat="server" Visible="false" CssClass="panel">
                 <div>
                     <asp:Label ID="lblOfferCode" runat="server" CssClass="label">Offer Code</asp:Label>
-                    <asp:TextBox ID="tbOfferCode" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbOfferCode" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblOfferSubset" runat="server" CssClass="label">Offer Subset</asp:Label>
-                    <asp:TextBox ID="tbOfferSubset" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbOfferSubset" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblOfferThreshold" runat="server" CssClass="label">Offer Threshold</asp:Label>
-                    <asp:TextBox ID="tbOfferThreshold" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbOfferThreshold" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label ID="lblOfferValue" runat="server" CssClass="label">Offer Value</asp:Label>
-                    <asp:TextBox ID="tbOfferValue" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbOfferValue" runat="server" CssClass="textBox"></asp:TextBox>
                 </div>
             </asp:Panel>
             <asp:Panel ID="panelProvided" runat="server" Visible="false" CssClass="panel">
